@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.tourism_org.com.tourismapp.config.DbConnection;
+//import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.model.admin;
 
@@ -20,18 +20,20 @@ public class AdminDao {
 	
 	private List <admin> adminList = new ArrayList<>();
 	
+	
+//	//get all the users
 	public List<admin> getAll(){
 		
 		List<admin> admin = getAdminFromDb();
 		
 		return admin;
 	}
-	
+//	
 //	public static void main (String[] args) {
 //		try {
-//			Class.forNa   me("com.mysql.cj.jdbc.Driver");
+//			Class.forName("com.mysql.cj.jdbc.Driver");
 //			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-//		    String s="insert into admin values('2','Watson','John','johnwatson@gmail.com',0778978907,'passcode1542')";
+//		    String s="insert into admin values('1','Watson','John','johnwatson@gmail.com',0778978907,'passcode1542')";
 //			PreparedStatement st=con.prepareStatement(s);
 //		st.execute();
 //		con.close();
@@ -40,9 +42,9 @@ public class AdminDao {
 //		{ 
 //		System.out.println (e);
 //		}
-//	}
+//	}}
 
-
+////post request
 public int addAdmin(admin Admin) {
 	
 	//Connection connection = DbConnection.getInstance().getConnection();
@@ -51,20 +53,19 @@ public int addAdmin(admin Admin) {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 	    Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
 		//Prepare SQL query.
-		String sql = "INSERT INTO `admin` (`admin_id`,`fname`,`lname`, `email`,`mobile`, `password`)"
+		String sql = "INSERT INTO `admin` (`admin_fname`,`admin_lname`, `email`,`mobile`, `admin_password`)"
 				+ "VALUES (?, ?, ?, ?, ?);";
 		
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, Admin.getAdmin_id());
-		stmt.setString(2, Admin.getFname());
-		stmt.setString(3, Admin.getLname());
-		stmt.setString(4, Admin.getEmail());
-		stmt.setInt(5, Admin.getMobile());
-		stmt.setString(6, Admin.getPassword());
+		stmt.setString(1, Admin.getFname());
+		stmt.setString(2, Admin.getLname());
+		stmt.setString(3, Admin.getEmail());
+		stmt.setInt(4, Admin.getMobile());
+		stmt.setString(5, Admin.getPassword());
 		
-		int response = stmt.executeUpdate();
+		int res = stmt.executeUpdate();
 		
-		return response;
+		return res;
 		
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -73,7 +74,8 @@ public int addAdmin(admin Admin) {
 	}
 	}
 
-	
+//get an admin by admin id 
+
 public admin getaAdmin(int admin_id) {
 		
 		List<admin> admins = getAdminFromDb();
@@ -91,10 +93,10 @@ public List<admin> getAdminFromDb(){
 	
 	List<admin> adminList = new ArrayList<>();
 	
-	//Create connection instance.
-	//Connection conn = DbConnection.getInstance().getConnection();
-	
-	//Prepare the query.
+//	//Create connection instance.
+//	//Connection conn = DbConnection.getInstance().getConnection();
+//	
+//	//Prepare the query.
 	String sql = "SELECT * FROM `admin`;";
 	
 	try {
