@@ -10,8 +10,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//import com.cohort4.cohort4jaxrsapp.model.User;
-//import com.tourism_org.com.tourismapp.config.DbConnection;
+import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.model.admin;
 
@@ -19,7 +18,7 @@ public class AdminDao {
 	
 	private Logger logger = LogManager.getLogger(AdminDao.class);
 	
-	 private List <admin> adminList = new ArrayList<>();
+	private List <admin> adminList = new ArrayList<>();
 	
 	public List<admin> getAll(){
 		
@@ -30,7 +29,7 @@ public class AdminDao {
 	
 //	public static void main (String[] args) {
 //		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			Class.forNa   me("com.mysql.cj.jdbc.Driver");
 //			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
 //		    String s="insert into admin values('2','Watson','John','johnwatson@gmail.com',0778978907,'passcode1542')";
 //			PreparedStatement st=con.prepareStatement(s);
@@ -38,7 +37,7 @@ public class AdminDao {
 //		con.close();
 //		}
 //	catch (Exception e)
-//		{
+//		{ 
 //		System.out.println (e);
 //		}
 //	}
@@ -75,17 +74,18 @@ public int addAdmin(admin Admin) {
 	}
 
 	
-public admin getaAdmin(int id) {
+public admin getaAdmin(int admin_id) {
 		
 		List<admin> admins = getAdminFromDb();
-		
+
 		for (admin admin : admins) {
-			if (admin.getAdmin_id() == id) {
+			if (admin.getAdmin_id() == admin_id) {
 				return admin;
 			}
 		}
 		return null;
-	}
+		}
+
 	
 public List<admin> getAdminFromDb(){
 	
@@ -101,8 +101,7 @@ public List<admin> getAdminFromDb(){
 	  Class.forName("com.mysql.cj.jdbc.Driver");
       Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
 	  PreparedStatement stmt = conn.prepareStatement(sql);
-		
-		ResultSet resultSet = stmt.executeQuery();
+	  ResultSet resultSet = stmt.executeQuery();
 					
 		while(resultSet.next()) {
 			admin Admin = new admin();
@@ -119,11 +118,9 @@ public List<admin> getAdminFromDb(){
 		return adminList;
 		
 		} catch (Exception e) {
-		logger.error("DB ERROR :  Could not access data - "+e.getMessage());
-		return null;
+			logger.error("DB ERROR :  Could not access data - "+e.getMessage());
+			return null;
 	}
-	
-	
 	
 }
 
