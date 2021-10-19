@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.attribute.standard.Media;
-
+//import javax.print.attribute.standard.Media;
 import com.google.gson.Gson;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.model.admin;
@@ -64,7 +63,7 @@ public class AdminResource {
 		}
 	}
 	
-	@POST // to insert we use post
+	@POST // to insert data we use post
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces (MediaType.APPLICATION_JSON)
 	public Response addAdmin(@FormParam("fname") String fname,
@@ -108,4 +107,23 @@ public class AdminResource {
 					.build(); 
 		}
 	}
+	
+//	public int updateAdmin(admin Admin) {
+//		return 1;
+//	}
+//	
+//	public int deleteUser(admin Admin) {
+//		try {
+//			if (user != null) {
+//				userList.remove(user);
+//				return 1;
+//			} else {
+//				return 0;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return -1;
+//		}
+//	}
+	
 }

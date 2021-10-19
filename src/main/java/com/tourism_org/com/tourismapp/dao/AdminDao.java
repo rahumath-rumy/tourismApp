@@ -44,7 +44,7 @@ public class AdminDao {
 //		}
 //	}}
 
-////post request
+//post request
 public int addAdmin(admin Admin) {
 	
 	//Connection connection = DbConnection.getInstance().getConnection();
@@ -72,7 +72,8 @@ public int addAdmin(admin Admin) {
 		logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
 		return -1;
 	}
-	}
+	
+}
 
 //get an admin by admin id 
 
@@ -86,17 +87,17 @@ public admin getaAdmin(int admin_id) {
 			}
 		}
 		return null;
-		}
+}
 
 	
 public List<admin> getAdminFromDb(){
 	
 	List<admin> adminList = new ArrayList<>();
 	
-//	//Create connection instance.
-//	//Connection conn = DbConnection.getInstance().getConnection();
-//	
-//	//Prepare the query.
+//	Create connection instance.
+//	Connection conn = DbConnection.getInstance().getConnection();
+//	Prepare the query.
+	
 	String sql = "SELECT * FROM `admin`;";
 	
 	try {

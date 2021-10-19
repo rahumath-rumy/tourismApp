@@ -2,40 +2,46 @@ package com.tourism_org.com.tourismapp.model;
 
 public class User {
  
-	private int customer_id;
+	private int id;
 	private String fname;
 	private String lname;
-	private String email;
+	private int phone;
+	private String address;
+	private String city;
+	private String state;
+	private String postalcode;
 	private String country;
+	private String email;
 	private String passport;
-	private int mobile;
-	private String address; 
 	private String password;
 
 	public User () {
 		
 	}
 
-	public User(int customer_id, String email, String country, String passport, int mobile,
-			String address, String fname, String lname, String password) {
+	public User(int id, String fname, String lname, int phone, String address, String city, String state,
+			String postalcode, String country, String email, String passport, String password) {
 		super();
-		this.customer_id = customer_id;
+		this.id = id;
 		this.fname = fname;
 		this.lname = lname;
-		this.email = email;
-		this.country = country;
-		this.passport = passport;
-		this.mobile = mobile;
+		this.phone = phone;
 		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.postalcode = postalcode;
+		this.country = country;
+		this.email = email;
+		this.passport = passport;
 		this.password = password;
 	}
 
-	public int getCustomer_id() {
-		return customer_id;
+	public int getId() {
+		return id;
 	}
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFname() {
@@ -46,52 +52,20 @@ public class User {
 		this.fname = fname;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getPassport() {
-		return passport;
-	}
-
-	public void setPassport(String passport) {
-		this.passport = passport;
-	}
-
-	public int getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(int mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getLname() {
 		return lname;
 	}
 
 	public void setLname(String lname) {
 		this.lname = lname;
+	}
+
+	public int getPhone() {
+		return phone;
+	}
+
+	public void setPhone(int phone) {
+		this.phone = phone;
 	}
 
 	public String getAddress() {
@@ -102,7 +76,61 @@ public class User {
 		this.address = address;
 	}
 
+	public String getCity() {
+		return city;
+	}
 
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getPostalcode() {
+		return postalcode;
+	}
+
+	public void setPostalcode(String postalcode) {
+		this.postalcode = postalcode;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 }
-
+	
