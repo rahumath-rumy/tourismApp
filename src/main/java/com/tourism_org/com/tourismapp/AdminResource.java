@@ -10,6 +10,7 @@ import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.model.admin;
 
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -112,18 +113,30 @@ public class AdminResource {
 //		return 1;
 //	}
 //	
-//	public int deleteUser(admin Admin) {
-//		try {
-//			if (user != null) {
-//				userList.remove(user);
-//				return 1;
-//			} else {
-//				return 0;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return -1;
+	
+//	@DELETE
+//	@Path("{admin_id}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response DelAdmin(@PathParam("admin_id") int admin_id) {
+//		
+//		AdminDao adminDao = new AdminDao();
+//		admin Admin = adminDao.DelAdmin(admin_id);
+//		
+//		if(Admin != null) {
+//			String jsonString = gson.toJson(Admin);
+//			return Response
+//					.status(200)
+//					.entity(jsonString)
+//					.build();
+//		} else {
+//			Map<String, String> errorMsg = new HashMap<>();
+//			errorMsg.put("ERROR", "Cannot delete admin");
+//			
+//			String errorString = gson.toJson(errorMsg);
+//			return Response
+//					.status(400)
+//					.entity(errorString)
+//					.build();
 //		}
 //	}
-	
 }

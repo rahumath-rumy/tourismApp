@@ -1,14 +1,11 @@
 package com.tourism_org.com.tourismapp.dao;
-//import java.lang.System.Logger;
-//import java.nio.charset.StandardCharsets;
-//import java.security.MessageDigest;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-//import java.util.Base64;
+import java.util.Base64;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,10 +78,11 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-					//Prepare SQL query.
+				//Prepare SQL query.
 				
-				//String password =  user.getPassword();
-				//String encryptedPassword = Sha1Encrpt(password);
+
+				String password = user.getPassword();
+			    String encryptedPassword =  Sha1Encrypt (password);
 				
 				//Prepare SQL query.
 				String sql = "INSERT INTO `customer` (`Fname`, `Lname`, `Phone`, `Address`,  `City`,  `State`,  `PostalCode`, `Country`,`Email`,`PassportNumber`, `password`) "
@@ -101,7 +99,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				stmt.setString(8, user.getCountry());
 				stmt.setString(9, user.getEmail());
 				stmt.setString(10, user.getPassport());
-				stmt.setString(11, user.getPassword());
+				stmt.setString(11, encryptedPassword);
 		
 				int response = stmt.executeUpdate();
 				//connection.close();
@@ -209,7 +207,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-				
+					
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				
 				ResultSet resultSet = stmt.executeQuery();
@@ -239,56 +237,47 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				return null;
 			}
 		}
-    }
 			//PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		//}
 		
-		//private List<user> fakeDbCall(){ //fakedb is name of db
+//		private List<user> fakeDbCall(){ //fakedb is name of db
 			//database access happens here
-		
-//		//implement log here 
-//		//logger.fatal("This is a fatal log")	;
+//		
+		//implement log here 
+//		logger.fatal("This is a fatal log")	;
 //		logger.error("This is an error!");
 //		logger.warn("This is a warn");
 //		//logger.info("This is info");
 //		//logger.debug("This is debug");
 //		logger.trace("This is a trace log");
 //
-//			
-//		userlist.add(new User(1,"Rahmath" , "Rumy", 011892119, "dehiwala", "rah@gmail.com","9899","123"));
-//		userlist.add(new user(2,"zai@gmail.com","zai","456","staff"));
-//		userlist.add(new user(3,"thisu@gmail.com","thisuni","113","admin"));
-//		userlist.add(new user(4,"saf@gmail.com","safra","ar3","admin"));	
-//		userlist.add(new user(5,"anon@gmail.com","anon","rt3","customer"));
-		//can have different tables for different kinds of user
-		
-	//	return userlist;
-		
-	//	}
+//		}
+
 		
 //		/**
 //		 * SHA-1 encryption method
 //		 * @param tobeEncrypted
 //		 * @return
 //		 */
-//		public String Sha1Encrpt(String tobeEncrypted) {
-//			try {
-//				byte[] passwordArr = tobeEncrypted.getBytes(StandardCharsets.UTF_8);
-//				MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
-//				byte[] encrptPassword = sha1Encrypt.digest(passwordArr);
-//				
-//				String encryptedString = Base64.getEncoder().encodeToString(encrptPassword);
-//				
-//				return encryptedString;
-//				
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				return null;
-//			}
-//		}
-//		
-//
-//	}
+		
+		public String Sha1Encrypt (String tobeEncrpyted) {
+		   
+			try {
+			byte[] passwordArr = tobeEncrpyted.getBytes();
+		    
+		    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
+		    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
+		    
+		    String s = Base64.getEncoder().encodeToString(encryptPassword);
+		   
+		    return s;
+			
+			} 	catch (Exception e) { 
+				e.printStackTrace();
+				return null;
+			}
+		}
+    }
 
-//}
+
