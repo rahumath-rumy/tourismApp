@@ -109,6 +109,42 @@ public class AdminResource {
 		}
 	}
 	
+	@Path ("/login")
+	@POST
+	@Consumes (MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(String data) {
+		Gson gson = new Gson();
+		admin enter_admin =gson.fromJson(data, admin.class);
+		
+		AdminDao adminDao = new AdminDao();
+		admin admin = adminDao.adminAuth(enter_admin.getEmail(), enter_admin.getPassword());
+		
+		if (admin != null) {
+			Map<String, String> msg = new HashMap<>();
+			
+			msg.put("Success", "You have logged on!");
+			String jsonString = gson.toJson(msg);
+		
+			return Response  
+					.status(200)
+					.entity(jsonString)
+					.build();
+		
+		} else {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("Error"," invalid login");
+			String jsonString = gson.toJson(msg);
+			return Response  
+					.status(401)
+					.entity(jsonString)
+					.build(); 
+		}
+	}
+	
+	
+	
+	
 //	public int updateAdmin(admin Admin) {
 //		return 1;
 //	}

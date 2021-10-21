@@ -34,7 +34,7 @@ public class AdminDaoTest {
 	public void testLogin() {
 		
 		String email ="henryj@gmail.com";
-		String password ="henrdanger";
+		String password ="henrydanger";
 		
 		
 		AdminDao adminDao = new AdminDao();

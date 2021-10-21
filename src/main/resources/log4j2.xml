@@ -7,9 +7,9 @@
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
 
-		<File name="FileX" fileName="xlogs/app.log">
+		<!-- <File name="FileX" fileName="xlogs/app.log">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-		</File>
+		</File>  -->
 		
 		<RollingFile name="RollingFileX" fileName="ylogs/current.log" 
 		filePattern="ylogs/%d{yyyy-MM-dd}/bak-%d{MM-dd-yyyy}-%i.log.gz">

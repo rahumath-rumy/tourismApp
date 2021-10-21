@@ -132,6 +132,8 @@ public admin getaAdmin(int admin_id) {
 		return null;
 }
 
+
+//check login authorization
 public admin adminAuth(String email, String password) {
 	
 	try {
