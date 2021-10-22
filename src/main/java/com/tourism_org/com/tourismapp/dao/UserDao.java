@@ -120,6 +120,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		 * @return
 		 * @throws ClassNotFoundException 
 		 */
+		
 		public User userAuth(String email, String password) {
 			
 			try {
@@ -158,7 +159,22 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		      }
 		      
 		      if (rows == 1) {
-		    	  return User;
+		        	  
+		    	 Class.forName("com.mysql.cj.jdbc.Driver");
+		         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+		    	    	 
+		         String sql1 = "INSERT INTO `customer_login` (`Email`, `password`)"
+		    	  				+ "VALUES (?,?);";
+		    	  		
+		  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
+	   	  		//stmt1.setString(1, User.getLoginid());
+	   	  		stmt1.setString(1, User.getEmail());
+		  		stmt1.setString(2, User.getPassword());
+
+		    	int res1 = stmt1.executeUpdate();
+		    	  		
+		    	 //return res1;
+		    	 return User;
 		  
 		      } else {
 		    	  return null;

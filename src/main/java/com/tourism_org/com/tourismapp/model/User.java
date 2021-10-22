@@ -131,6 +131,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getLoginid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
 	
