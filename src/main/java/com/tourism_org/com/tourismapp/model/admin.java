@@ -71,6 +71,11 @@ public class admin {
 		this.password = password;
 	}
 
+	public String getAloginid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

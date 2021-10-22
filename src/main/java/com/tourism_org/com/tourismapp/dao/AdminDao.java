@@ -165,7 +165,23 @@ public admin adminAuth(String email, String password) {
       }
       
       if (rows == 1) {
-    	  return Admin;
+    	  
+    	 Class.forName("com.mysql.cj.jdbc.Driver");
+         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+    	 
+    	 String sql1 = "INSERT INTO `admin_login` (`aloginid`,`email`, `admin_password`)"
+  				+ "VALUES (?, ?, ?);";
+  		
+  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
+  		stmt1.setString(1, Admin.getAloginid());
+  		stmt1.setString(2, Admin.getEmail());
+  		stmt1.setString(3, Admin.getPassword());
+
+  		int res1 = stmt1.executeUpdate();
+  		
+  		//return res1;
+
+    	 return Admin;
     	  
       } else {
     	  return null;
