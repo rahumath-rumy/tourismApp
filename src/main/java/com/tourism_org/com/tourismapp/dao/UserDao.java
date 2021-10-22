@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 //import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.model.User;
+import com.tourism_org.com.tourismapp.model.admin;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 
 	
@@ -82,7 +83,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				
 
 				String password = user.getPassword();
-			    String encryptedPassword =  Sha1Encrypt (password);
+			    String encryptedPassword =  Sha1Encrypt1 (password);
 				
 				//Prepare SQL query.
 				String sql = "INSERT INTO `customer` (`Fname`, `Lname`, `Phone`, `Address`,  `City`,  `State`,  `PostalCode`, `Country`,`Email`,`PassportNumber`, `password`) "
@@ -112,66 +113,85 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 
-//		/**
-//		 * Login checker method.
-//		 * @param email
-//		 * @param password
-//		 * @return
-//		 * @throws ClassNotFoundException 
-//		 */
-//		public User userAuth(String email, String password) {
-//			Connection connection = DbConnection.getInstance().getConnection();
-//			
-//			try {
-//				
-//				String encryptedPassword = Sha1Encrpt(password);
-//				
-//				//Prepare SQL query.
-//				String sql = "SELECT * FROM `customer` WHERE `email`=? AND `password`=?";
-//				
-//				PreparedStatement stmt = connection.prepareStatement(sql);
-//				stmt.setString(1, email);
-//				stmt.setString(2, encryptedPassword);
-//				
-//				ResultSet rs = stmt.executeQuery();
-//				
-//				int rows = 0;
-//				User user = new User();
-//				while(rs.next()) {
-//					rows++;
-//					user.setId(rs.getInt("id"));
-//					user.setFname(rs.getString("fname"));
-//					user.setLname(rs.getString("lname"));
-//					user.setPhone(rs.getInt("phone"));
-//					user.setAddress(rs.getString("address"));
-//					user.setCity(rs.getString("city"));
-//					user.setState(rs.getString("state"));
-//					user.setPostalcode(rs.getString("postalcode"));
-//					user.setCountry(rs.getString("country"));
-//					user.setEmail(rs.getString("email"));
-//					user.setPassport(rs.getString("passport"));
-//					user.setPassword(rs.getString("password"));
-//				}
-//				
-//				if(rows == 1) {
-//					return user;
-//				} else {
-//					return null;
-//				}
-//				
-//			    } catch (Exception e) {
-//				    e.printStackTrace();
-//				    return null;
-//			}
-//			
-//		}
-//
-//
-//		private String Sha1Encrpt(String password) {
-//			// TODO Auto-generated method stub
-//			return null;
-//		}
-//
+		/**
+		 * Login checker method.
+		 * @param email
+		 * @param password
+		 * @return
+		 * @throws ClassNotFoundException 
+		 */
+		public User userAuth(String email, String password) {
+			
+			try {
+			  Class.forName("com.mysql.cj.jdbc.Driver");
+		      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+		    
+		      String encryptedPassword = Sha1Encrypt (password);
+		      
+		      String sql ="Select * from `customer` where `Email` = ? and `password`=?";
+		      PreparedStatement stmt = conn.prepareStatement(sql);
+		      stmt.setString(1,email);
+		      stmt.setString (2, encryptedPassword);
+		      
+		      ResultSet resultSet = stmt.executeQuery();
+		      
+		      int rows =0;
+		      User User = new User();
+		      while (resultSet.next()) {
+		    	  
+		    	    rows ++;
+		    	
+		    	    User user = new User();
+					user.setId(resultSet.getInt("Id"));
+					user.setFname(resultSet.getString("Fname"));
+					user.setLname(resultSet.getString("Lname"));
+					user.setPhone(resultSet.getInt("Phone"));
+					user.setAddress(resultSet.getString("Address"));
+					user.setCity(resultSet.getString("City"));
+					user.setState(resultSet.getString("State"));
+					user.setPostalcode(resultSet.getString("PostalCode"));
+					user.setCountry(resultSet.getString("Country"));
+					user.setEmail(resultSet.getString("Email"));
+					user.setPassport(resultSet.getString("PassportNumber"));
+					user.setPassword(resultSet.getString("password"));
+		    	  
+		      }
+		      
+		      if (rows == 1) {
+		    	  return User;
+		  
+		      } else {
+		    	  return null;
+		      }
+		      
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+				
+			}
+			
+		}
+
+		public String Sha1Encrypt1 (String tobeEncrpyted) {
+		   
+			try {
+			byte[] passwordArr = tobeEncrpyted.getBytes();
+		    
+		    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
+		    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
+		    
+		    String s = Base64.getEncoder().encodeToString(encryptPassword);
+		    
+		    return s;
+			
+			} 	catch (Exception e) { 
+				e.printStackTrace();
+				return null;
+			}   
+			
+		}
+		
+		
 //		public int updateUser(User user) {
 //			return 1; //have to with a db pause for now
 //			

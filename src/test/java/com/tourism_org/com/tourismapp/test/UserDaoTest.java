@@ -28,6 +28,17 @@ import com.tourism_org.com.tourismapp.model.User;
 			assertNotNull(actual);
 		}
 
+		@Test
+		public void testLogin() {
+			
+			String email ="louis98@gmail.com";
+			String password ="1234567";
+			
+			UserDao userDao = new UserDao();
+			User actual =userDao.userAuth(email, password);
+			
+			assertNotNull(actual);
+		}
 	}
 	 
 

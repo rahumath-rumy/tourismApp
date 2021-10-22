@@ -123,7 +123,7 @@ public class AdminResource {
 		if (admin != null) {
 			Map<String, String> msg = new HashMap<>();
 			
-			msg.put("Success", "You have logged on!");
+			msg.put("Success", "You have logged in!");
 			String jsonString = gson.toJson(msg);
 		
 			return Response  
@@ -133,7 +133,7 @@ public class AdminResource {
 		
 		} else {
 			Map<String, String> msg = new HashMap<>();
-			msg.put("Error"," invalid login");
+			msg.put("Error"," Invalid Admin Login. Please try again!");
 			String jsonString = gson.toJson(msg);
 			return Response  
 					.status(401)

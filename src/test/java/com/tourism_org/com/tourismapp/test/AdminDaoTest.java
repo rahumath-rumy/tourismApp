@@ -11,24 +11,24 @@ public class AdminDaoTest {
 	
 	private int expected =1;
 	
-//	//@Test
-//	public void testGetAdmins() {
-//		AdminDao adminDao = new AdminDao ();
-//		List <admin> admins =  adminDao.getAdminFromDb();
-//	    int actual = admins.size();
-//	    assertEquals(expected, actual);
-//	
-//	}
-//	
-//	//@Test
-//	public void testSha1Encrypt() {
-//		String input = "sample";
-//		AdminDao adminDao = new AdminDao();
-//		String actual = adminDao.Sha1Encrypt(input);
-//		System.out.println (actual);
-//		
-//		assertNotNull(actual);
-//	}
+	@Test
+	public void testGetAdmins() {
+		AdminDao adminDao = new AdminDao ();
+		List <admin> admins =  adminDao.getAdminFromDb();
+	    int actual = admins.size();
+	    assertEquals(expected, actual);
+	
+	}
+	
+	@Test
+	public void testSha1Encrypt() {
+		String input = "sample";
+		AdminDao adminDao = new AdminDao();
+		String actual = adminDao.Sha1Encrypt(input);
+		System.out.println (actual);
+		
+		assertNotNull(actual);
+	}
 	
 	@Test
 	public void testLogin() {

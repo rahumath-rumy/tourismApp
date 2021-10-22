@@ -163,6 +163,7 @@ public admin adminAuth(String email, String password) {
 			Admin.setPassword(resultSet.getString("admin_password"));
     	  
       }
+      
       if (rows == 1) {
     	  return Admin;
     	  
@@ -181,10 +182,6 @@ public admin adminAuth(String email, String password) {
 public List<admin> getAdminFromDb(){
 	
 	List<admin> adminList = new ArrayList<>();
-	
-//	Create connection instance.
-//	Connection conn = DbConnection.getInstance().getConnection();
-//	Prepare the query.
 	
 	String sql = "SELECT * FROM `admin`;";
 	

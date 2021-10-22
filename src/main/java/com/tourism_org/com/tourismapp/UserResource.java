@@ -1,13 +1,14 @@
     package com.tourism_org.com.tourismapp;
-	import java.sql.SQLException;
+	//import java.sql.SQLException;
 	import java.util.HashMap;
 	import java.util.List;
 	import java.util.Map;
 	import com.google.gson.Gson;
-	import com.tourism_org.com.tourismapp.dao.UserDao;
-	import com.tourism_org.com.tourismapp.model.User;
-	
-	import jakarta.ws.rs.Consumes;
+import com.tourism_org.com.tourismapp.dao.UserDao;
+import com.tourism_org.com.tourismapp.model.User;
+
+
+import jakarta.ws.rs.Consumes;
 	import jakarta.ws.rs.FormParam;
 	import jakarta.ws.rs.GET;
 	import jakarta.ws.rs.POST;
@@ -20,7 +21,6 @@
 
 	@Path("customer")
 	public class UserResource {
-		
 		
 		private Gson gson = new Gson();
 		
@@ -120,6 +120,42 @@
 						.build(); 
 			}
 		}
+		
+		@Path ("/userlogin")
+		@POST
+		@Consumes (MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response login(String data) {
+			Gson gson = new Gson();
+			User enter_user = gson.fromJson(data, User.class);
+			
+			UserDao userDao = new UserDao();
+			User user = userDao.userAuth(enter_user .getEmail(), enter_user.getPassword());
+			
+			if (user != null) {
+				Map  <String, String> msg = new HashMap<>();
+				
+				msg.put("Success", "You have logged in!");
+				String jsonString = gson.toJson(msg);
+			
+				return Response  
+						.status(200)
+						.entity(jsonString)
+						.build();
+			
+			} else {
+				Map<String, String> msg = new HashMap<>();
+				msg.put("Error"," Invalid login. Please try again!");
+				String jsonString = gson.toJson(msg);
+				return Response  
+						.status(401)
+						.entity(jsonString)
+						.build(); 
+			}
+		}
+		
+		
+		
 		
 //		public int updateAdmin(admin Admin) {
 //			return 1;
