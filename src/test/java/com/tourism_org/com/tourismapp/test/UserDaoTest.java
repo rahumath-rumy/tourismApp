@@ -31,8 +31,8 @@ import com.tourism_org.com.tourismapp.model.User;
 		@Test
 		public void testLogin() {
 			
-			String email ="louis98@gmail.com";
-			String password ="1234567";
+			String email ="olive@yahoo.com";
+			String password ="olive";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.userAuth(email, password);

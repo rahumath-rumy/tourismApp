@@ -14,6 +14,7 @@ public class User {
 	private String email;
 	private String passport;
 	private String password;
+	
 
 	public User () {
 		
@@ -34,6 +35,7 @@ public class User {
 		this.email = email;
 		this.passport = passport;
 		this.password = password;
+		
 	}
 
 	public int getId() {
@@ -136,6 +138,7 @@ public class User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 }
 	

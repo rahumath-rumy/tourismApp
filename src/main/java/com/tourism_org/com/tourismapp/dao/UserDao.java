@@ -113,6 +113,25 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 
+		
+		public String Sha1Encrypt1 (String tobeEncrpyted) {
+			   
+			try {
+			byte[] passwordArr = tobeEncrpyted.getBytes();
+		    
+		    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
+		    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
+		    
+		    String s = Base64.getEncoder().encodeToString(encryptPassword);
+		    
+		    return s;
+			
+			} 	catch (Exception e) { 
+				e.printStackTrace();
+				return null;
+			}   
+			
+		}
 		/**
 		 * Login checker method.
 		 * @param email
@@ -142,70 +161,52 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		    	  
 		    	    rows ++;
 		    	
-		    	    User user = new User();
-					user.setId(resultSet.getInt("Id"));
-					user.setFname(resultSet.getString("Fname"));
-					user.setLname(resultSet.getString("Lname"));
-					user.setPhone(resultSet.getInt("Phone"));
-					user.setAddress(resultSet.getString("Address"));
-					user.setCity(resultSet.getString("City"));
-					user.setState(resultSet.getString("State"));
-					user.setPostalcode(resultSet.getString("PostalCode"));
-					user.setCountry(resultSet.getString("Country"));
-					user.setEmail(resultSet.getString("Email"));
-					user.setPassport(resultSet.getString("PassportNumber"));
-					user.setPassword(resultSet.getString("password"));
+		    	    //User user = new User();
+					User.setId(resultSet.getInt("Id"));
+					User.setFname(resultSet.getString("Fname"));
+					User.setLname(resultSet.getString("Lname"));
+					User.setPhone(resultSet.getInt("Phone"));
+					User.setAddress(resultSet.getString("Address"));
+					User.setCity(resultSet.getString("City"));
+					User.setState(resultSet.getString("State"));
+					User.setPostalcode(resultSet.getString("PostalCode"));
+					User.setCountry(resultSet.getString("Country"));
+					User.setEmail(resultSet.getString("Email"));
+					User.setPassport(resultSet.getString("PassportNumber"));
+					User.setPassword(resultSet.getString("password"));
 		    	  
 		      }
 		      
-		      if (rows == 1) {
+	      if (rows == 1) {
 		        	  
 		    	 Class.forName("com.mysql.cj.jdbc.Driver");
 		         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
 		    	    	 
-		         String sql1 = "INSERT INTO `customer_login` (`Email`, `password`)"
-		    	  				+ "VALUES (?,?);";
+		         String sql1 = "INSERT INTO `customer_login` (`loginid`,`Email`, `password`)"
+		    	  				+ "VALUES (?, ?,?);";
 		    	  		
 		  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
-	   	  		//stmt1.setString(1, User.getLoginid());
-	   	  		stmt1.setString(1, User.getEmail());
-		  		stmt1.setString(2, User.getPassword());
+	   	 
+				stmt1.setString(1, User.getLoginid());
+	   	  		stmt1.setString(2, User.getEmail());
+		  		stmt1.setString(3, User.getPassword());
 
-		    	int res1 = stmt1.executeUpdate();
+		    	int resultSet1 = stmt1.executeUpdate();
 		    	  		
-		    	 //return res1;
-		    	 return User;
+//		    	 //return res1;
+	    	  	return User;
 		  
-		      } else {
-		    	  return null;
-		      }
-		      
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-				
-			}
+	      } else {
+	    	  return null;
+	      }
+	      
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 			
 		}
 
-		public String Sha1Encrypt1 (String tobeEncrpyted) {
-		   
-			try {
-			byte[] passwordArr = tobeEncrpyted.getBytes();
-		    
-		    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
-		    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
-		    
-		    String s = Base64.getEncoder().encodeToString(encryptPassword);
-		    
-		    return s;
-			
-			} 	catch (Exception e) { 
-				e.printStackTrace();
-				return null;
-			}   
-			
-		}
+	}
 		
 		
 //		public int updateUser(User user) {
