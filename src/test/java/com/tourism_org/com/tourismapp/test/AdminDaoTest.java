@@ -9,7 +9,7 @@ import com.tourism_org.com.tourismapp.model.admin;
 
 public class AdminDaoTest {
 	
-	private int expected =1;
+	private int expected =2;
 	
 	@Test
 	public void testGetAdmins() {
@@ -33,12 +33,23 @@ public class AdminDaoTest {
 	@Test
 	public void testLogin() {
 		
-		String email ="henryj@gmail.com";
+		String email ="henry@gmail.com";
 		String password ="henrydanger";
 		
 		
 		AdminDao adminDao = new AdminDao();
 		admin actual =adminDao.adminAuth(email, password);
+		
+		assertNotNull(actual);
+	}
+	
+	@Test
+	public void testForgotpassword() {
+		
+		String email ="henry@gmail.com";
+		
+		AdminDao adminDao = new AdminDao();
+		admin actual =adminDao.forgotpassword(email);
 		
 		assertNotNull(actual);
 	}

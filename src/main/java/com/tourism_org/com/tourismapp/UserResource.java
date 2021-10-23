@@ -1,14 +1,13 @@
     package com.tourism_org.com.tourismapp;
-	//import java.sql.SQLException;
+	
 	import java.util.HashMap;
 	import java.util.List;
 	import java.util.Map;
 	import com.google.gson.Gson;
-import com.tourism_org.com.tourismapp.dao.UserDao;
-import com.tourism_org.com.tourismapp.model.User;
+	import com.tourism_org.com.tourismapp.dao.UserDao;
+	import com.tourism_org.com.tourismapp.model.User;
 
-
-import jakarta.ws.rs.Consumes;
+	import jakarta.ws.rs.Consumes;
 	import jakarta.ws.rs.FormParam;
 	import jakarta.ws.rs.GET;
 	import jakarta.ws.rs.POST;
@@ -122,7 +121,7 @@ import jakarta.ws.rs.Consumes;
 		}
 		
 		@Path ("/userlogin")
-		@POST
+		@GET
 		@Consumes (MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response login(String data) {
@@ -154,6 +153,40 @@ import jakarta.ws.rs.Consumes;
 			}
 		}
 		
+	
+		
+		@Path ("/forgotpassword")
+		@POST
+		@Consumes (MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response forgotpassword(String email) {
+			Gson gson = new Gson();
+			User enter_email = gson.fromJson(email, User.class);
+			
+			UserDao userDao = new UserDao();
+			User user = userDao.forgotpassword(enter_email.getEmail());
+			
+			if (user != null) {
+				Map  <String, String> msg = new HashMap<>();
+				
+				msg.put("Success", "An email has been sent! Kindly click on the link sent to your email to change your password.");
+				String jsonString = gson.toJson(msg);
+			
+				return Response  
+						.status(200)
+						.entity(jsonString)
+						.build();
+			
+			} else {
+				Map<String, String> msg = new HashMap<>();
+				msg.put("Error"," Incorrect Email Address! Please try again!");
+				String jsonString = gson.toJson(msg);
+				return Response  
+						.status(401)
+						.entity(jsonString)
+						.build(); 
+			}
+		}
 		
 		
 		

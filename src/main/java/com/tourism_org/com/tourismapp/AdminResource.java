@@ -7,6 +7,8 @@ import java.util.Map;
 //import javax.print.attribute.standard.Media;
 import com.google.gson.Gson;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
+import com.tourism_org.com.tourismapp.dao.UserDao;
+import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
 
 import jakarta.ws.rs.Consumes;
@@ -142,6 +144,38 @@ public class AdminResource {
 		}
 	}
 	
+	@Path ("/forgotpassword")
+	@POST
+	@Consumes (MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response forgotpassword(String email) {
+		Gson gson = new Gson();
+		User enter_email = gson.fromJson(email, User.class);
+		
+		AdminDao adminDao = new AdminDao();
+		admin admin = adminDao.forgotpassword(enter_email.getEmail());
+		
+		if (admin != null) {
+			Map<String, String> msg = new HashMap<>();
+			
+			msg.put("Success", "A link has been sent to your email! Kindly click on the link to change password.");
+			String jsonString = gson.toJson(msg);
+		
+			return Response  
+					.status(200)
+					.entity(jsonString)
+					.build();
+		
+		} else {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("Error"," Invalid email address. Please try again!");
+			String jsonString = gson.toJson(msg);
+			return Response  
+					.status(401)
+					.entity(jsonString)
+					.build(); 
+		}
+	}
 	
 	
 	

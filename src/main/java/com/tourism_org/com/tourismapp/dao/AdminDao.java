@@ -190,9 +190,50 @@ public admin adminAuth(String email, String password) {
 	} catch (Exception e) {
 		e.printStackTrace();
 		return null;
-		
+	}
 	}
 	
+	public admin forgotpassword(String email) {
+		
+		try {
+		  Class.forName("com.mysql.cj.jdbc.Driver");
+	      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+	    
+
+	      String sql ="Select * from `admin` where `email` = ?";
+	      PreparedStatement stmt = conn.prepareStatement(sql);
+	      stmt.setString(1,email);
+	      
+	      ResultSet resultSet = stmt.executeQuery();
+	      
+	      int rows =0;
+	      admin Admin = new admin();
+	      while (resultSet.next()) {
+	    	  
+	    	    rows ++;
+	    	
+				Admin.setAdmin_id(resultSet.getInt("admin_id"));
+				Admin.setFname(resultSet.getString("admin_fname"));
+				Admin.setLname(resultSet.getString("admin_lname"));
+				Admin.setEmail(resultSet.getString("email"));
+				Admin.setMobile(resultSet.getInt("mobile"));
+				Admin.setPassword(resultSet.getString("admin_password"));
+	    	  
+	      }
+	      
+	      if (rows == 1) {
+	    	 return Admin;
+	    	  
+	      } else {
+	    	  return null;
+	      }
+	      
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			
+		}
+		
 }
 	
 public List<admin> getAdminFromDb(){

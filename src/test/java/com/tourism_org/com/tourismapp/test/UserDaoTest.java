@@ -8,7 +8,7 @@ import com.tourism_org.com.tourismapp.model.User;
 
 	public class UserDaoTest {
 		
-		private int expected =1;
+		private int expected =5;
 		
 		@Test
 		public void testGetUser()  {
@@ -36,6 +36,17 @@ import com.tourism_org.com.tourismapp.model.User;
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.userAuth(email, password);
+			
+			assertNotNull(actual);
+		}
+		
+		@Test
+		public void testForgotPassword() {
+			
+			String email ="olive@yahoo.com";
+			
+			UserDao userDao = new UserDao();
+			User actual =userDao.forgotpassword(email);
 			
 			assertNotNull(actual);
 		}

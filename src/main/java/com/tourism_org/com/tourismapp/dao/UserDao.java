@@ -20,20 +20,15 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 
     	private static Logger logger = LogManager.getLogger(UserDao.class);
 		//private org.apache.logging.log4j.Logger logger =  LogManager.getLogger(UserDao.class);
-		
-		private List <User> userList = new ArrayList<>();//empty list which accepts only the users
-		
-		/**
-		 * Get all the users.
-		 * @return
-		 */
-	
 
-		
-//		public List<User> getUserFromDb() {
-//			// TODO Auto-generated method stub
-//			return null;
+  
+//    	private List <User> userList = new ArrayList<>();//empty list which accepts only the users
+//		public List <User> getAlluser() { // if I need the list of users
+//			
+//			List<User> user = getUserFromDB(); // if I need the list of users
+//			return user;
 //		}
+//		
 
 		/**
 		 * Get a user by user id.
@@ -41,16 +36,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		 * @return
 		 */
 		
-		//get all the users
-		
-		public List <User> getAlluser() { // if I need the list of users
-			List<User> user = getUserFromDB(); // if I need the list of users
-		
-			return user;
-		}
-		
-		
-		public User getaUser (int id) { //to get a user
+		public User getaUser (int id) {
 
 			List <User> users =  getUserFromDB();
 			 
@@ -132,6 +118,8 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}   
 			
 		}
+		
+		
 		/**
 		 * Login checker method.
 		 * @param email
@@ -203,7 +191,6 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-			
 		}
 
 	}
@@ -229,6 +216,11 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 //			}
 //			
 //		}
+		
+		/**
+		 * Get all the users.
+		 * @return
+		 */
 		
 		public static List<User> getUserFromDB()   {
 			
@@ -270,6 +262,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 					return userList;
 				
 			} catch (Exception e) {
+				
 				logger.error("DB ERROR : Could not access data - "+e.getMessage());
 				return null;
 			}
@@ -277,26 +270,60 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			//PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		//}
-		
-//		private List<user> fakeDbCall(){ //fakedb is name of db
-			//database access happens here
-//		
-		//implement log here 
-//		logger.fatal("This is a fatal log")	;
-//		logger.error("This is an error!");
-//		logger.warn("This is a warn");
-//		//logger.info("This is info");
-//		//logger.debug("This is debug");
-//		logger.trace("This is a trace log");
-//
-//		}
 
+		public User forgotpassword(String email) {
+			try {
+				  Class.forName("com.mysql.cj.jdbc.Driver");
+			      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+			      
+			      String sql ="Select * from `customer` where `Email` = ?";
+			     
+			      PreparedStatement stmt = conn.prepareStatement(sql);
+			      stmt.setString(1,email);
+			      
+			      ResultSet resultSet = stmt.executeQuery();
+			      
+			      int rows =0;
+			      User User = new User();
+			      while (resultSet.next()) {
+			    	  
+			    	    rows ++;
+			    	
+						User.setId(resultSet.getInt("Id"));
+						User.setFname(resultSet.getString("Fname"));
+						User.setLname(resultSet.getString("Lname"));
+						User.setPhone(resultSet.getInt("Phone"));
+						User.setAddress(resultSet.getString("Address"));
+						User.setCity(resultSet.getString("City"));
+						User.setState(resultSet.getString("State"));
+						User.setPostalcode(resultSet.getString("PostalCode"));
+						User.setCountry(resultSet.getString("Country"));
+						User.setEmail(resultSet.getString("Email"));
+						User.setPassport(resultSet.getString("PassportNumber"));
+						User.setPassword(resultSet.getString("password"));
+			    	  
+			      }
+			      
+		      if (rows == 1) {
+			   	return User;
+			  
+		      } else {
+		    	return null;
+		      }
+		      
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;	
+			}
+
+		}
+    
 		
-//		/**
-//		 * SHA-1 encryption method
-//		 * @param tobeEncrypted
-//		 * @return
-//		 */
+		/**
+		 * SHA-1 encryption method
+		 * @param tobeEncrypted
+		 * @return
+		 */
 		
 		public String Sha1Encrypt (String tobeEncrpyted) {
 		   
@@ -316,5 +343,4 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
     }
-
 
