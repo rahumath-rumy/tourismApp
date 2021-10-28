@@ -69,13 +69,12 @@
 		public Response addUser(@FormParam("Fname") String fname,
 								@FormParam("Lname") String lname,
 								@FormParam("Phone") int phone,
-								@FormParam("Address") String address,
-								@FormParam("City") String city,
-								@FormParam("State") String state,
-								@FormParam("PostalCode") String postalcode,
-								@FormParam("Country") String country,
 								@FormParam("Email") String email,
-								@FormParam("PassportNumber") String passport,
+								@FormParam("Address") String address,
+								@FormParam("Srilankan") boolean srilankan,
+								@FormParam("Country") String country,
+								@FormParam("Nationality") String nationality,
+								@FormParam("PassportOrNIC") String passport,
 								@FormParam ("password") String password) {
 			
 			//declare gson
@@ -85,12 +84,11 @@
 			user.setFname(fname);
 			user.setLname(lname);
 			user.setPhone(phone);
-			user.setAddress(address);
-			user.setCity(city);
-			user.setState(state);
-			user.setPostalcode(postalcode);
-			user.setCountry(country);
 			user.setEmail(email);
+			user.setAddress(address);
+			user.setSrilankan(srilankan);
+			user.setCountry(country);
+			user.setNationality(nationality);
 			user.setPassport(passport);
 			user.setPassword(password);
 			

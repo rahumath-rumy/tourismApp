@@ -6,12 +6,11 @@ public class User {
 	private String fname;
 	private String lname;
 	private int phone;
-	private String address;
-	private String city;
-	private String state;
-	private String postalcode;
-	private String country;
 	private String email;
+	private boolean srilankan;
+	private String address;
+	private String country;
+	private String nationality;
 	private String passport;
 	private String password;
 	
@@ -20,17 +19,16 @@ public class User {
 		
 	}
 
-	public User(int id, String fname, String lname, int phone, String address, String city, String state,
-			String postalcode, String country, String email, String passport, String password) {
+	public User(int id, String fname, String lname, int phone, String address, String country,
+			String nationality, boolean srilankan, String email, String passport, String password) {
 		super();
 		this.id = id;
 		this.fname = fname;
 		this.lname = lname;
 		this.phone = phone;
 		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.postalcode = postalcode;
+		this.setNationality(nationality);
+		this.srilankan = srilankan;
 		this.country = country;
 		this.email = email;
 		this.passport = passport;
@@ -78,29 +76,6 @@ public class User {
 		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getPostalcode() {
-		return postalcode;
-	}
-
-	public void setPostalcode(String postalcode) {
-		this.postalcode = postalcode;
-	}
 
 	public String getCountry() {
 		return country;
@@ -116,6 +91,22 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public boolean isSrilankan() {
+		return srilankan;
+	}
+
+	public void setSrilankan(boolean srilankan) {
+		this.srilankan = srilankan;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
 	public String getPassport() {
@@ -140,5 +131,6 @@ public class User {
 	}
 
 	
+
 }
 	

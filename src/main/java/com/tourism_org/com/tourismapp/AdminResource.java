@@ -69,20 +69,26 @@ public class AdminResource {
 	@POST // to insert data we use post
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces (MediaType.APPLICATION_JSON)
-	public Response addAdmin(@FormParam("fname") String fname,
-							@FormParam("lname") String lname,
+	public Response addAdmin(@FormParam("admin_id") int admin_id,
+							@FormParam("admin_fname") String fname,
+							@FormParam("admin_lname") String lname,
 							@FormParam("email") String email,
 							@FormParam("mobile") int mobile,
-							@FormParam ("password") String password) {
+							@FormParam("address") String address,
+							@FormParam("admin_control") boolean admin_control,
+							@FormParam ("admin_password") String password) {
 		
 		//declare gson
 		Gson gson = new Gson();
 		
 		admin admin = new admin();
+		admin.setAdmin_id(admin_id);
 		admin.setFname(fname);
 		admin.setLname(lname);
 		admin.setEmail(email);
 		admin.setMobile(mobile);
+		admin.setAddress(address);
+		admin.setAdmin_control(admin_control);
 		admin.setPassword(password);
 		
 		
@@ -92,7 +98,7 @@ public class AdminResource {
 		Map<String, String> Msg = new HashMap<>();
 		
 		if (Res > 0) {
-			Msg.put("Success", "user record added sucesfully");
+			Msg.put("Success", "Staff record added sucesfully");
 			String jsonString = gson.toJson(Msg);
 			
 			//if u want to redirect to a different page
@@ -102,7 +108,7 @@ public class AdminResource {
 					.build();
 		
 		} else {
-			Msg.put("Error"," add valid info");
+			Msg.put("Error"," Please add valid info");
 			String jsonString = gson.toJson(Msg);
 			return Response  
 					.status(401)
@@ -150,7 +156,7 @@ public class AdminResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response forgotpassword(String email) {
 		Gson gson = new Gson();
-		User enter_email = gson.fromJson(email, User.class);
+		admin enter_email = gson.fromJson(email, admin.class);
 		
 		AdminDao adminDao = new AdminDao();
 		admin admin = adminDao.forgotpassword(enter_email.getEmail());

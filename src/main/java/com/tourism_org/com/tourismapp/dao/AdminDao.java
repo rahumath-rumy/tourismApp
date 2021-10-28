@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.tourism_org.com.tourismapp.config.DbConnection;
 //import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.model.admin;
@@ -32,45 +33,34 @@ public class AdminDao {
 		
 		return admin;
 	}
-//	
-//	public static void main (String[] args) {
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-//		    String s="insert into admin values('1','Watson','John','johnwatson@gmail.com',0778978907,'passcode1542')";
-//			PreparedStatement st=con.prepareStatement(s);
-//		st.execute();
-//		con.close();
-//		}
-//	catch (Exception e)
-//		{ 
-//		System.out.println (e);
-//		}
-//	}}
+
  
 //post request
 public int addAdmin(admin Admin) {
 	
-	//Connection connection = DbConnection.getInstance().getConnection();
+	Connection connection = DbConnection.getInstance().getConnection();
 	
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-	    Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+	    //Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
 		
 	    String password = Admin.getPassword();
 	    String encryptedPassword =  Sha1Encrypt (password);
 	    
 	    
 	    //Prepare SQL query.
-		String sql = "INSERT INTO `admin` (`admin_fname`,`admin_lname`, `email`,`mobile`, `admin_password`)"
-				+ "VALUES (?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO `admin` (`admin_id`,`admin_fname`,`admin_lname`, `email`,`mobile`,`address`,`admin_control`, `admin_password`)"
+				+ "VALUES (?, ?, ?, ?, ?,?,?,?);";
 		
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setString(1, Admin.getFname());
-		stmt.setString(2, Admin.getLname());
-		stmt.setString(3, Admin.getEmail());
-		stmt.setInt(4, Admin.getMobile());
-		stmt.setString(5, encryptedPassword);
+		stmt.setInt(1, Admin.getAdmin_id());
+		stmt.setString(2, Admin.getFname());
+		stmt.setString(3, Admin.getLname());
+		stmt.setString(4, Admin.getEmail());
+		stmt.setInt(5, Admin.getMobile());
+		stmt.setString(6, Admin.getAddress());
+		stmt.setBoolean(7, Admin.isAdmin_control());
+		stmt.setString(8, encryptedPassword);
 		
 		int res = stmt.executeUpdate();
 		
@@ -85,7 +75,6 @@ public int addAdmin(admin Admin) {
 
 
 public String Sha1Encrypt (String tobeEncrpyted) {
-	//String tobeEncrpyted = Admin.getPassword();
    
 	try {
 	byte[] passwordArr = tobeEncrpyted.getBytes();
@@ -93,11 +82,7 @@ public String Sha1Encrypt (String tobeEncrpyted) {
     MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
     byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
     
-    //StringBuilder sbEncryptPassword = new StringBuilder();
-    
-//    for (byte b : encryptPassword) {
-//    	sbEncryptPassword.append(b);
-//    }
+ 
     
     String s = Base64.getEncoder().encodeToString(encryptPassword);
     	
@@ -135,15 +120,16 @@ public admin getaAdmin(int admin_id) {
 
 //check login authorization
 public admin adminAuth(String email, String password) {
+
+	Connection connection = DbConnection.getInstance().getConnection();
 	
 	try {
-	  Class.forName("com.mysql.cj.jdbc.Driver");
-      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-    
+		Class.forName("com.mysql.cj.jdbc.Driver");
+   
       String encryptedPassword = Sha1Encrypt (password);
       
       String sql ="Select * from `admin` where `email` = ? and `admin_password`=?";
-      PreparedStatement stmt = conn.prepareStatement(sql);
+      PreparedStatement stmt = connection.prepareStatement(sql);
       stmt.setString(1,email);
       stmt.setString (2, encryptedPassword);
       
@@ -160,22 +146,23 @@ public admin adminAuth(String email, String password) {
 			Admin.setLname(resultSet.getString("admin_lname"));
 			Admin.setEmail(resultSet.getString("email"));
 			Admin.setMobile(resultSet.getInt("mobile"));
+			Admin.setAddress(resultSet.getString("address"));
+			Admin.setAdmin_control(resultSet.getBoolean("admin_control"));
 			Admin.setPassword(resultSet.getString("admin_password"));
-    	  
       }
       
       if (rows == 1) {
     	  
-    	 Class.forName("com.mysql.cj.jdbc.Driver");
-         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+    	  Connection connection1 = DbConnection.getInstance().getConnection(); 
+    	  Class.forName("com.mysql.cj.jdbc.Driver");
+        
     	 
-    	 String sql1 = "INSERT INTO `admin_login` (`aloginid`,`email`, `admin_password`)"
-  				+ "VALUES (?, ?, ?);";
+    	 String sql1 = "INSERT INTO `admin_login` (`email`, `admin_password`)"
+  				+ "VALUES ( ?, ?);";
   		
-  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
-  		stmt1.setString(1, Admin.getAloginid());
-  		stmt1.setString(2, Admin.getEmail());
-  		stmt1.setString(3, Admin.getPassword());
+  		PreparedStatement stmt1 = connection1.prepareStatement(sql1);
+  		stmt1.setString(1, Admin.getEmail());
+  		stmt1.setString(2, Admin.getPassword());
 
   		int res1 = stmt1.executeUpdate();
   		
@@ -195,13 +182,12 @@ public admin adminAuth(String email, String password) {
 	
 	public admin forgotpassword(String email) {
 		
+		Connection connection = DbConnection.getInstance().getConnection();
 		try {
 		  Class.forName("com.mysql.cj.jdbc.Driver");
-	      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-	    
-
+		  
 	      String sql ="Select * from `admin` where `email` = ?";
-	      PreparedStatement stmt = conn.prepareStatement(sql);
+	      PreparedStatement stmt = connection.prepareStatement(sql);
 	      stmt.setString(1,email);
 	      
 	      ResultSet resultSet = stmt.executeQuery();
@@ -217,6 +203,8 @@ public admin adminAuth(String email, String password) {
 				Admin.setLname(resultSet.getString("admin_lname"));
 				Admin.setEmail(resultSet.getString("email"));
 				Admin.setMobile(resultSet.getInt("mobile"));
+				Admin.setAddress(resultSet.getString("address"));
+				Admin.setAdmin_control(resultSet.getBoolean("admin_control"));
 				Admin.setPassword(resultSet.getString("admin_password"));
 	    	  
 	      }
@@ -238,14 +226,15 @@ public admin adminAuth(String email, String password) {
 	
 public List<admin> getAdminFromDb(){
 	
+	Connection connection = DbConnection.getInstance().getConnection();
 	List<admin> adminList = new ArrayList<>();
 	
 	String sql = "SELECT * FROM `admin`;";
 	
 	try {
 	  Class.forName("com.mysql.cj.jdbc.Driver");
-      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-	  PreparedStatement stmt = conn.prepareStatement(sql);
+    
+	  PreparedStatement stmt = connection.prepareStatement(sql);
 	  ResultSet resultSet = stmt.executeQuery();
 					
 		while(resultSet.next()) {
@@ -255,6 +244,8 @@ public List<admin> getAdminFromDb(){
 			Admin.setLname(resultSet.getString("admin_lname"));
 			Admin.setEmail(resultSet.getString("email"));
 			Admin.setMobile(resultSet.getInt("mobile"));
+			Admin.setAddress(resultSet.getString("address"));
+			Admin.setAdmin_control(resultSet.getBoolean("admin_control"));
 			Admin.setPassword(resultSet.getString("admin_password"));
 			
 		adminList.add(Admin);
