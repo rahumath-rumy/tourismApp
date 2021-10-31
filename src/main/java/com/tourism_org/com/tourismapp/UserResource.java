@@ -4,7 +4,8 @@
 	import java.util.List;
 	import java.util.Map;
 	import com.google.gson.Gson;
-	import com.tourism_org.com.tourismapp.dao.UserDao;
+import com.tourism_org.com.tourismapp.dao.DELETE;
+import com.tourism_org.com.tourismapp.dao.UserDao;
 	import com.tourism_org.com.tourismapp.model.User;
 
 	import jakarta.ws.rs.Consumes;
@@ -151,8 +152,17 @@
 			}
 		}
 		
+		@Path("/deleteaccount/{id}")
+		@jakarta.ws.rs.DELETE
+		@Produces(MediaType.APPLICATION_JSON)
+		//public Response deleteuser
+		public String 
+        deleteAccount(@PathParam("Id") int accountId) {
+      //System.out.println("deleting accountId = " + accountId);
+      return "<result>success</result>";
+		}
+			
 	
-		
 		@Path ("/forgotpassword")
 		@POST
 		@Consumes (MediaType.APPLICATION_JSON)

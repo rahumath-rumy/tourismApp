@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 //import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
+import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 
 	
@@ -181,6 +182,37 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 //			return 1; //have to with a db pause for now
 //			
 //		}
+		
+		 public boolean updateUser(User user)  {
+			 
+			 Connection connection = DbConnection.getInstance().getConnection();   
+			 boolean rowUpdated;
+		          
+		        try {
+		        	Class.forName("com.mysql.cj.jdbc.Driver");
+		        	PreparedStatement stmt = connection.prepareStatement(update_sql);
+		    
+		        	stmt.setString(1, user.getFname());
+					stmt.setString(2, user.getLname());
+					stmt.setInt(3, user.getPhone());
+					stmt.setString(4, user.getEmail());
+					stmt.setString(5, user.getAddress());
+					stmt.setBoolean(6, user.isSrilankan());
+					stmt.setString(7, user.getCountry());
+					stmt.setString(8, user.getNationality());
+					stmt.setString(9, user.getPassport());
+					//stmt.setString(10, encryptedPassword);
+		            rowUpdated = stmt.executeUpdate() > 0;
+		       
+			   return rowUpdated;
+		      
+		      
+			} catch (Exception e) {
+				e.printStackTrace();
+				return (Boolean) null;
+			}
+
+		}
 //		
 //		public int deleteUser(User user) {
 //			try {
@@ -197,6 +229,65 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 //			}
 //			
 //		}
+		
+		 public User DelUser(String email) {
+			 
+			 try {
+				  Class.forName("com.mysql.cj.jdbc.Driver");
+			      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+			    
+			      
+			      String sql ="Select * from `customer` where `Email` = ?";
+			      PreparedStatement stmt = conn.prepareStatement(sql);
+			      stmt.setString(1,email);
+			      
+			      ResultSet resultSet = stmt.executeQuery();
+			      
+			      int rows =0;
+			      User User = new User();
+			      while (resultSet.next()) {
+			    	  
+			    	    rows ++;
+			    	
+			    	    //User user = new User();
+						User.setId(resultSet.getInt("Id"));
+						User.setFname(resultSet.getString("Fname"));
+						User.setLname(resultSet.getString("Lname"));
+						User.setPhone(resultSet.getInt("Phone"));
+						User.setAddress(resultSet.getString("Address"));
+						User.setNationality(resultSet.getString("Nationality"));
+						User.setSrilankan(resultSet.getBoolean("Srilankan"));
+						User.setCountry(resultSet.getString("Country"));
+						User.setEmail(resultSet.getString("Email"));
+						User.setPassport(resultSet.getString("PassportOrNIC"));
+						User.setPassword(resultSet.getString("password"));
+			    	  
+			      }
+			      
+		      if (rows == 1) {
+			        	  
+			    	 Class.forName("com.mysql.cj.jdbc.Driver");
+			         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+			    	    	 
+			         String sql1 = "Delete from `customer_login` where `email` = ?;";
+			    	  		
+			  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
+
+			    	int resultSet1 = stmt1.executeUpdate();		    	  		
+		    	  	return User;
+			  
+		      } else {
+		    	  return null;
+		      }
+		      
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+			
+		
 		
 		/**
 		 * Get all the users.
@@ -312,6 +403,54 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				e.printStackTrace();
 				return null;
 			}
+		}
+		
+		
+		public User Payment (String email) {
+			
+			Connection connection = DbConnection.getInstance().getConnection();
+			
+			try {
+				  Class.forName("com.mysql.cj.jdbc.Driver");
+			      String sql ="Select * from `customer` where `Email` = ?";
+			     
+			      PreparedStatement stmt = connection.prepareStatement(sql);
+			      stmt.setString(1,email);
+			      
+			      ResultSet resultSet = stmt.executeQuery();
+			      
+			      int rows =0;
+			      User User = new User();
+			      while (resultSet.next()) {
+			    	  
+			    	    rows ++;
+			    	
+						User.setId(resultSet.getInt("Id"));
+						User.setFname(resultSet.getString("Fname"));
+						User.setLname(resultSet.getString("Lname"));
+						User.setPhone(resultSet.getInt("Phone"));
+						User.setEmail(resultSet.getString("Email"));
+						User.setAddress(resultSet.getString("Address"));
+						User.setSrilankan(resultSet.getBoolean("Srilankan"));
+						User.setCountry(resultSet.getString("Country"));
+						User.setNationality(resultSet.getString("Nationality"));
+						User.setPassport(resultSet.getString("PassportOrNIC"));
+						User.setPassword(resultSet.getString("password"));
+			    	  
+			      }
+			      
+		      if (rows == 1) {
+			   	return User;
+			  
+		      } else {
+		    	return null;
+		      }
+		      
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;	
+			}
+
 		}
     }
 
