@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.tourism_org.com.tourismapp.model.Payment;
 //import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
@@ -178,21 +179,23 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 	}
 		
 		
-//		public int updateUser(User user) {
-//			return 1; //have to with a db pause for now
-//			
-//		}
-		
-		 public boolean updateUser(User user)  {
+		 public User updateUser(int id)  {
 			 
 			 Connection connection = DbConnection.getInstance().getConnection();   
-			 boolean rowUpdated;
+			 String sql = 
+				        "update customer set Fname = ?, Lname=?, Phone=?, Email=?, Address=?, Srilankan=?, Country=?, "
+				        + "Nationality=?, PassportOrNIC=?, password=? where Id=?";
 		          
 		        try {
 		        	Class.forName("com.mysql.cj.jdbc.Driver");
-		        	PreparedStatement stmt = connection.prepareStatement(update_sql);
+		        	
+		        	PreparedStatement stmt = connection.prepareStatement(sql);
+		        	
+		        	String password = user.getPassword();
+		        	 String encryptedPassword = Sha1Encrypt (password);
 		    
-		        	stmt.setString(1, user.getFname());
+		        	 stmt.setInt(1,id);
+		        	stmt.setString(1, fname);
 					stmt.setString(2, user.getLname());
 					stmt.setInt(3, user.getPhone());
 					stmt.setString(4, user.getEmail());
@@ -200,97 +203,43 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 					stmt.setBoolean(6, user.isSrilankan());
 					stmt.setString(7, user.getCountry());
 					stmt.setString(8, user.getNationality());
-					stmt.setString(9, user.getPassport());
-					//stmt.setString(10, encryptedPassword);
-		            rowUpdated = stmt.executeUpdate() > 0;
+					stmt.setString(9, passport);
+					stmt.setString(10, encryptedPassword);
+					stmt.setInt(11, id());
+		            stmt.executeUpdate();
 		       
-			   return rowUpdated;
+			  return null;
+					
+				}
+					catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}	
+		 
+		public User deluser(int id) {
+
+			 Connection connection = DbConnection.getInstance().getConnection();	
+			
+			 try {		
+			  Class.forName("com.mysql.cj.jdbc.Driver");
+		      String sql ="delete from customer where Id = ?";
+		      PreparedStatement stmt = connection.prepareStatement(sql);
+		      stmt.setInt(1,id);
 		      
-		      
-			} catch (Exception e) {
-				e.printStackTrace();
-				return (Boolean) null;
+		     stmt.executeUpdate();
+		    	  
+		    
+			return null;
+			
 			}
-
-		}
-//		
-//		public int deleteUser(User user) {
-//			try {
-//				if (user != null) {
-//					userList.remove(user);
-//					return 1;
-//				} else {
-//					return 0;
-//				}
-//				
-//			} catch (Exception e) { //if something goes wrong, informs here
-//				e.printStackTrace(); //error details in the console
-//				return -1; //if something goes wrong
-//			}
-//			
-//		}
-		
-		 public User DelUser(String email) {
-			 
-			 try {
-				  Class.forName("com.mysql.cj.jdbc.Driver");
-			      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-			    
-			      
-			      String sql ="Select * from `customer` where `Email` = ?";
-			      PreparedStatement stmt = conn.prepareStatement(sql);
-			      stmt.setString(1,email);
-			      
-			      ResultSet resultSet = stmt.executeQuery();
-			      
-			      int rows =0;
-			      User User = new User();
-			      while (resultSet.next()) {
-			    	  
-			    	    rows ++;
-			    	
-			    	    //User user = new User();
-						User.setId(resultSet.getInt("Id"));
-						User.setFname(resultSet.getString("Fname"));
-						User.setLname(resultSet.getString("Lname"));
-						User.setPhone(resultSet.getInt("Phone"));
-						User.setAddress(resultSet.getString("Address"));
-						User.setNationality(resultSet.getString("Nationality"));
-						User.setSrilankan(resultSet.getBoolean("Srilankan"));
-						User.setCountry(resultSet.getString("Country"));
-						User.setEmail(resultSet.getString("Email"));
-						User.setPassport(resultSet.getString("PassportOrNIC"));
-						User.setPassword(resultSet.getString("password"));
-			    	  
-			      }
-			      
-		      if (rows == 1) {
-			        	  
-			    	 Class.forName("com.mysql.cj.jdbc.Driver");
-			         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-			    	    	 
-			         String sql1 = "Delete from `customer_login` where `email` = ?;";
-			    	  		
-			  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
-
-			    	int resultSet1 = stmt1.executeUpdate();		    	  		
-		    	  	return User;
-			  
-		      } else {
-		    	  return null;
-		      }
-		      
-			} catch (Exception e) {
+				catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-
-		}
-			
-		
-		
+		}	
 		/**
-		 * Get all the users.
+		 * Get all the users.s
 		 * @return
 		 */
 		
@@ -452,5 +401,37 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 
 		}
+		
+		public int payment (User user) { 
+			
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+				
+				String sql = "INSERT INTO `payment` (`Id`, `Package_Id`, `CardType`, `card_no`, `CVV`,  `exp_date`,  `Payment_date`, `Amount_paid`) "
+						+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
+				
+				PreparedStatement stmt = connection.prepareStatement(sql);
+				stmt.setInt(1, user.getId());
+				stmt.setString(2, user.packageID());
+				stmt.setInt(3, user.getCardType());
+				stmt.setInt(4, user.getCardNo());
+				stmt.setInt(5, user.getCvv());
+				stmt.setString(6, user.getExp_date());
+				stmt.setString(7, user.getPaymentdate());
+				stmt.setFloat(8, user.getAmountpaid());
+				
+		
+				int response = stmt.executeUpdate();
+				return response;
+				
+		     	} catch (Exception e) {
+			    	e.printStackTrace();
+				    logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
+				    return -1; 
+			}
+		}
+
+		
     }
 

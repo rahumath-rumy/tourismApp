@@ -1,16 +1,20 @@
 package com.tourism_org.com.tourismapp;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 //import javax.print.attribute.standard.Media;
 import com.google.gson.Gson;
+import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
 
+import jakarta.validation.ReportAsSingleViolation;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
@@ -190,29 +194,36 @@ public class AdminResource {
 //	}
 //	
 	
-//	@DELETE
-//	@Path("{admin_id}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response DelAdmin(@PathParam("admin_id") int admin_id) {
-//		
-//		AdminDao adminDao = new AdminDao();
-//		admin Admin = adminDao.DelAdmin(admin_id);
-//		
-//		if(Admin != null) {
-//			String jsonString = gson.toJson(Admin);
-//			return Response
-//					.status(200)
-//					.entity(jsonString)
-//					.build();
-//		} else {
-//			Map<String, String> errorMsg = new HashMap<>();
-//			errorMsg.put("ERROR", "Cannot delete admin");
-//			
-//			String errorString = gson.toJson(errorMsg);
-//			return Response
-//					.status(400)
-//					.entity(errorString)
-//					.build();
-//		}
-//	}
+	@DELETE
+	@Path("/{admin_id}")
+	public Response deladmin (@PathParam("admin_id") int admin_id) {
+
+		AdminDao adminDao = new AdminDao();
+		admin admin = adminDao.getaAdmin(admin_id);	
+		
+		if (adminDao.getaAdmin(admin_id) != null) {
+			
+			adminDao.deladmin(admin_id);
+			Map<String, String> msg = new HashMap<>();
+			
+			msg.put("Success", "Your account has been deleted permanently");
+			String jsonString = gson.toJson(msg);
+		
+			return Response  
+					.status(200)
+					.entity(jsonString)
+					.build();
+		
+		} else {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("Error"," Could not delete account");
+			String jsonString = gson.toJson(msg);
+			return Response  
+					.status(401)
+					.entity(jsonString)
+					.build(); 
+		}
 }
+}
+
+

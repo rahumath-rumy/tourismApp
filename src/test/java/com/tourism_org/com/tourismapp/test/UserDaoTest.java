@@ -8,7 +8,7 @@ import com.tourism_org.com.tourismapp.model.User;
 
 	public class UserDaoTest {
 		
-		private int expected =5;
+		private int expected =0;
 		
 		@Test
 		public void testGetUser()  {

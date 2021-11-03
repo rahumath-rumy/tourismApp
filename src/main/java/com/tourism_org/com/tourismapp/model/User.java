@@ -130,7 +130,37 @@ public class User {
 		return null;
 	}
 
-	
+	public int getCardType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getCardNo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getCvv() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getExp_date() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getPaymentdate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public float getAmountpaid() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 }
 	

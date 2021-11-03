@@ -46,7 +46,7 @@ public class AdminDaoTest {
 	@Test
 	public void testForgotpassword() {
 		
-		String email ="henry@gmail.com";
+		String email ="rebecca@tours.org";
 		
 		AdminDao adminDao = new AdminDao();
 		admin actual =adminDao.forgotpassword(email);
@@ -54,5 +54,13 @@ public class AdminDaoTest {
 		assertNotNull(actual);
 	}
 	
+	@Test
+	public void testdeladmin() {
+		int admin_id =101;
+		
+		AdminDao adminDao = new AdminDao();
+		admin actual =adminDao.deladmin(admin_id);
+		assertNotNull(actual);
+	}
 }
  

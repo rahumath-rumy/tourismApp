@@ -97,9 +97,9 @@ public String Sha1Encrypt (String tobeEncrpyted) {
 	
 }
 
-    public int DelAdmin(@PathParam("admin_id") int admin_id) {
-    return DelAdmin(admin_id);
-}
+//    public int DelAdmin(@PathParam("admin_id") int admin_id) {
+//    return DelAdmin(admin_id);
+//}
 
 
 
@@ -257,7 +257,30 @@ public List<admin> getAdminFromDb(){
 			logger.error("DB ERROR :  Could not access data - "+e.getMessage());
 			return null;
 	}
-	
-}
 
+}
+	
+	public admin deladmin(int admin_id) {
+
+		 Connection connection = DbConnection.getInstance().getConnection();	
+		try {		
+		  Class.forName("com.mysql.cj.jdbc.Driver");
+				
+	      
+	      String sql ="delete from admin where admin_id = ?";
+	      PreparedStatement stmt = connection.prepareStatement(sql);
+	      stmt.setInt(1,admin_id);
+	      
+	     stmt.executeUpdate();
+	    	  
+	    
+		return null;
+		
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+		
 }

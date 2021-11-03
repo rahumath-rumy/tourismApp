@@ -4,14 +4,17 @@
 	import java.util.List;
 	import java.util.Map;
 	import com.google.gson.Gson;
-import com.tourism_org.com.tourismapp.dao.DELETE;
+import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 	import com.tourism_org.com.tourismapp.model.User;
+import com.tourism_org.com.tourismapp.model.admin;
 
-	import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Consumes;
+	import jakarta.ws.rs.DELETE;
 	import jakarta.ws.rs.FormParam;
 	import jakarta.ws.rs.GET;
 	import jakarta.ws.rs.POST;
+	import jakarta.ws.rs.PUT;
 	import jakarta.ws.rs.Path;
 	import jakarta.ws.rs.PathParam;
 	import jakarta.ws.rs.Produces;
@@ -20,6 +23,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 
 
 	@Path("customer")
+	//annotate produces and consumers here. and elete from the rest
 	public class UserResource {
 		
 		private Gson gson = new Gson();
@@ -119,6 +123,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 		
+		
 		@Path ("/userlogin")
 		@GET
 		@Consumes (MediaType.APPLICATION_JSON)
@@ -152,16 +157,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 		
-		@Path("/deleteaccount/{id}")
-		@jakarta.ws.rs.DELETE
-		@Produces(MediaType.APPLICATION_JSON)
-		//public Response deleteuser
-		public String 
-        deleteAccount(@PathParam("Id") int accountId) {
-      //System.out.println("deleting accountId = " + accountId);
-      return "<result>success</result>";
-		}
-			
+		
 	
 		@Path ("/forgotpassword")
 		@POST
@@ -197,25 +193,68 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		}
 		
 		
-		
-//		public int updateAdmin(admin Admin) {
-//			return 1;
-//		}
-//		
-//		public int deleteUser(admin Admin) {
-//			try {
-//				if (user != null) {
-//					userList.remove(user);
-//					return 1;
-//				} else {
-//					return 0;
-//				}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				return -1;
-//			}
-//		}
-//		
-//	}
+		@PUT
+		@Path("customer")
+		@Consumes(MediaType.APPLICATION_JSON)
+		//@Produces (MediaType.APPLICATION_JSON)
+		public Response updateUser(@PathParam("Id") int id) {
+			
+			UserDao userDao = new UserDao();
+			User user = userDao.updateUser(id);	
+			
+			if (userDao.updateUser(id) != null) {
+				
+				userDao.updateUser(user);
+				Map<String, String> msg = new HashMap<>();
+				
+				msg.put("Success", "Your account has been updated");
+				String jsonString = gson.toJson(msg);
+			
+				return Response  
+						.status(200)
+						.entity(jsonString)
+						.build();
+			
+			} else {
+				Map<String, String> msg = new HashMap<>();
+				msg.put("Error"," Could not delete account");
+				String jsonString = gson.toJson(msg);
+				return Response  
+						.status(401)
+						.entity(jsonString)
+						.build(); 
+			}
+	}
+				
+		@DELETE
+		@Path("/{Id}")
+		public Response deluser (@PathParam("Id") int id) {
+
+			UserDao userDao = new UserDao();
+			User user = userDao.getaUser(id);	
+			
+			if (userDao.getaUser(id) != null) {
+				
+				userDao.deluser(id);
+				Map<String, String> msg = new HashMap<>();
+				
+				msg.put("Success", "Your account has been deleted permanently");
+				String jsonString = gson.toJson(msg);
+			
+				return Response  
+						.status(200)
+						.entity(jsonString)
+						.build();
+			
+			} else {
+				Map<String, String> msg = new HashMap<>();
+				msg.put("Error"," Could not delete account");
+				String jsonString = gson.toJson(msg);
+				return Response  
+						.status(401)
+						.entity(jsonString)
+						.build(); 
+			}
+	}
 
 }
