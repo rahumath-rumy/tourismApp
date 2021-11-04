@@ -9,26 +9,17 @@ import java.util.Base64;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.tourism_org.com.tourismapp.model.Payment;
-//import com.tourism_org.com.tourismapp.config.DbConnection;
-import com.tourism_org.com.tourismapp.model.User;
-import com.tourism_org.com.tourismapp.model.admin;
 import com.tourism_org.com.tourismapp.config.DbConnection;
+import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 
 	
     public class UserDao {
-
+    
     	private static Logger logger = LogManager.getLogger(UserDao.class);
-	
 
-		/**
-		 * Get a user by user id.
-		 * @param id
-		 * @return
-		 */
-		
+	
+    	//get a user
 		public User getaUser (int id) {
 
 			List <User> users =  getUserFromDB();
@@ -39,16 +30,12 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				 }
 			 }
 			 
-			 logger.error("Invalid ID");
+			 logger.info("Invalid ID");
 			 return null; 
 		}
 		
-		/**
-		 * Add user into the system.
-		 * @param user
-		 * @return
-		 */
-
+		
+		//addauser
 		public int addUser (User user) { 
 			
 			try {
@@ -80,40 +67,12 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				
 		     	} catch (Exception e) {
 			    	e.printStackTrace();
-				    logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
+				    logger.info("SQL ERROR :  Could not insert data - "+e.getMessage());
 				    return -1; 
 			}
 		}
-
 		
-		public String Sha1Encrypt1 (String tobeEncrpyted) {
-			   
-			try {
-			byte[] passwordArr = tobeEncrpyted.getBytes();
-		    
-		    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
-		    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
-		    
-		    String s = Base64.getEncoder().encodeToString(encryptPassword);
-		    
-		    return s;
-			
-			} 	catch (Exception e) { 
-				e.printStackTrace();
-				return null;
-			}   
-			
-		}
-		
-		
-		/**
-		 * Login checker method.
-		 * @param email
-		 * @param password
-		 * @return
-		 * @throws ClassNotFoundException 
-		 */
-		
+		//loginuser
 		public User userAuth(String email, String password) {
 			
 			try {
@@ -178,8 +137,8 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 
 	}
 		
-		
-		 public User updateUser(int id)  {
+		//update error
+		 public User updateUser(User user)  {
 			 
 			 Connection connection = DbConnection.getInstance().getConnection();   
 			 String sql = 
@@ -194,8 +153,8 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		        	String password = user.getPassword();
 		        	 String encryptedPassword = Sha1Encrypt (password);
 		    
-		        	 stmt.setInt(1,id);
-		        	stmt.setString(1, fname);
+		    
+		        	stmt.setString(1, user.getFname());
 					stmt.setString(2, user.getLname());
 					stmt.setInt(3, user.getPhone());
 					stmt.setString(4, user.getEmail());
@@ -203,9 +162,9 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 					stmt.setBoolean(6, user.isSrilankan());
 					stmt.setString(7, user.getCountry());
 					stmt.setString(8, user.getNationality());
-					stmt.setString(9, passport);
+					stmt.setString(9, user.getPassport());
 					stmt.setString(10, encryptedPassword);
-					stmt.setInt(11, id());
+					stmt.setInt(11, user.getId());
 		            stmt.executeUpdate();
 		       
 			  return null;
@@ -217,6 +176,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				}
 			}	
 		 
+		 //delete a user
 		public User deluser(int id) {
 
 			 Connection connection = DbConnection.getInstance().getConnection();	
@@ -238,11 +198,8 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				return null;
 			}
 		}	
-		/**
-		 * Get all the users.s
-		 * @return
-		 */
 		
+		//get all the users from db
 		public static List<User> getUserFromDB()   {
 			
 			List <User> userList = new ArrayList<>();
@@ -283,6 +240,8 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 
+		
+		//user forgot password
 		public User forgotpassword(String email) {
 			try {
 				  Class.forName("com.mysql.cj.jdbc.Driver");
@@ -354,6 +313,24 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 		
+		public String Sha1Encrypt1 (String tobeEncrpyted) {
+			   
+			try {
+			byte[] passwordArr = tobeEncrpyted.getBytes();
+		    
+		    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
+		    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
+		    
+		    String s = Base64.getEncoder().encodeToString(encryptPassword);
+		    
+		    return s;
+			
+			} 	catch (Exception e) { 
+				e.printStackTrace();
+				return null;
+			}   
+			
+		}
 		
 		public User Payment (String email) {
 			
@@ -413,7 +390,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 				
 				PreparedStatement stmt = connection.prepareStatement(sql);
 				stmt.setInt(1, user.getId());
-				stmt.setString(2, user.packageID());
+				//stmt.setString(2, user.packageID());
 				stmt.setInt(3, user.getCardType());
 				stmt.setInt(4, user.getCardNo());
 				stmt.setInt(5, user.getCvv());
@@ -433,5 +410,40 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		}
 
 		
-    }
-
+//		public User getpaymentuser (int id) {
+//
+//			List <User> users =  getUserFromDB();
+//			 
+//			 for(User user:users) {
+//				 if (user.getId() == id) {
+//					 
+//					 try {
+//							Class.forName("com.mysql.cj.jdbc.Driver");
+//							Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+//							
+//							String sql = "INSERT INTO `payment` (`Id`, `Package_Id`, `CardType`, `card_no`, `CVV`,  `exp_date`,  `Payment_date`, `Amount_paid`) "
+//									+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
+//							
+//							PreparedStatement stmt = connection.prepareStatement(sql);
+//							stmt.setInt(1, user.getId());
+//							//stmt.setString(2, user.packageID());
+//							stmt.setInt(3, user.getCardType());
+//							stmt.setInt(4, user.getCardNo());
+//							stmt.setInt(5, user.getCvv());
+//							stmt.setString(6, user.getExp_date());
+//							stmt.setString(7, user.getPaymentdate());
+//							stmt.setFloat(8, user.getAmountpaid());
+//							
+//					
+//							int response = stmt.executeUpdate();
+//							return user;
+//							
+//				 } catch (Exception e) {
+//				    	e.printStackTrace();
+//					    logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
+//					    return null;
+//					    	
+//		}
+				 
+		}	
+   

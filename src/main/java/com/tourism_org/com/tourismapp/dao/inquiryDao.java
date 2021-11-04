@@ -13,6 +13,7 @@ public class inquiryDao {
 
 	private Logger logger = LogManager.getLogger(inquiryDao.class);
 	
+	
 	public int addInquiry(inquiry inquiry) {
 		
 		Connection connection = DbConnection.getInstance().getConnection();
@@ -39,4 +40,6 @@ public class inquiryDao {
 			return -1;
 		}
 	}
+
+	
 }

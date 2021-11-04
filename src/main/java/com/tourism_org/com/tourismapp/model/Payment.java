@@ -3,6 +3,7 @@ package com.tourism_org.com.tourismapp.model;
 public class Payment {
 
 	private int payment_id;
+	private int package_id;
 	private String cardType;
 	private int cardNo;
 	private int cvv;
@@ -10,10 +11,11 @@ public class Payment {
 	private String paymentDate;
 	private Float amountPaid;
 	
-	public Payment(int payment_id, String cardType, int cardNo, int cvv, String expDate, String paymentDate,
+	public Payment(int payment_id, int package_id, String cardType, int cardNo, int cvv, String expDate, String paymentDate,
 			Float amountPaid) {
 		super();
 		this.payment_id = payment_id;
+		this.package_id = package_id;
 		this.cardType = cardType;
 		this.cardNo = cardNo;
 		this.cvv = cvv;
@@ -29,6 +31,15 @@ public class Payment {
 	public void setPayment_id(int payment_id) {
 		this.payment_id = payment_id;
 	}
+	
+	public int getPackage_Id() {
+		return package_id;
+	}
+	
+	public void setPackage_id(int package_id) {
+		this.package_id = package_id;
+	}
+	
 
 	public String getCardType() {
 		return cardType;
@@ -77,6 +88,7 @@ public class Payment {
 	public void setAmountPaid(Float amountPaid) {
 		this.amountPaid = amountPaid;
 	}
+
 	
 	
 }

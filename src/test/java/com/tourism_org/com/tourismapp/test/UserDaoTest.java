@@ -3,12 +3,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+
+import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 import com.tourism_org.com.tourismapp.model.User;
+import com.tourism_org.com.tourismapp.model.admin;
 
 	public class UserDaoTest {
 		
-		private int expected =0;
+		private int expected =3;
 		
 		@Test
 		public void testGetUser()  {
@@ -31,8 +34,8 @@ import com.tourism_org.com.tourismapp.model.User;
 		@Test
 		public void testLogin() {
 			
-			String email ="olive@yahoo.com";
-			String password ="olive";
+			String email ="hp@hogwarts.org";
+			String password ="harry";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.userAuth(email, password);
@@ -43,12 +46,39 @@ import com.tourism_org.com.tourismapp.model.User;
 		@Test
 		public void testForgotPassword() {
 			
-			String email ="olive@yahoo.com";
+			String email ="hp@hogwarts.org";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.forgotpassword(email);
 			
 			assertNotNull(actual);
+		}
+		
+		@Test
+		public void AddUser() {
+			
+			int expected = 1;
+			
+			User User= new User();
+		
+			//User.setId("");
+			User.setFname("Sophie");
+			User.setLname("James");
+			User.setPhone(778965423);
+			User.setAddress("22/4B, Mary Apartment, Houston");
+			User.setNationality("American");
+			User.setSrilankan(false);
+			User.setCountry("USA");
+			User.setEmail("sophie98@gmail.com");
+			User.setPassport("311456717");
+			User.setPassword("sophie98");			
+			
+
+			UserDao userDao = new UserDao();
+			int actual = userDao.addUser(User);
+					
+			assertEquals(expected, actual);
+		
 		}
 	}
 	 

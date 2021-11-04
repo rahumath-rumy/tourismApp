@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
+import com.tourism_org.com.tourismapp.dao.PackageDao;
+import com.tourism_org.com.tourismapp.model.Package;
 import com.tourism_org.com.tourismapp.model.admin;
 
 public class AdminDaoTest {
 	
-	private int expected =2;
+	private int expected =1;
 	
 	@Test
 	public void testGetAdmins() {
@@ -33,8 +35,8 @@ public class AdminDaoTest {
 	@Test
 	public void testLogin() {
 		
-		String email ="henry@gmail.com";
-		String password ="henrydanger";
+		String email ="sam@yahoo.com";
+		String password ="sam";
 		
 		
 		AdminDao adminDao = new AdminDao();
@@ -46,7 +48,7 @@ public class AdminDaoTest {
 	@Test
 	public void testForgotpassword() {
 		
-		String email ="rebecca@tours.org";
+		String email ="sam@yahoo.com";
 		
 		AdminDao adminDao = new AdminDao();
 		admin actual =adminDao.forgotpassword(email);
@@ -61,6 +63,28 @@ public class AdminDaoTest {
 		AdminDao adminDao = new AdminDao();
 		admin actual =adminDao.deladmin(admin_id);
 		assertNotNull(actual);
+	}
+	
+	@Test
+	public void AddAdmin() {
+		
+		int expected = 1;
+		
+		admin Admin= new admin();
+		Admin.setAdmin_id(102);
+		Admin.setFname("Joseph");
+		Admin.setLname("Faux");
+		Admin.setEmail("joseph@tours.org");
+		Admin.setMobile(778987654);
+		Admin.setAddress("N0 18, Keppitipola Road, Kolannawa");
+		Admin.setAdmin_control(true);
+		Admin.setPassword("joseph");
+
+		AdminDao adminDao = new AdminDao();
+		int actual = adminDao.addAdmin(Admin);
+				
+		assertEquals(expected, actual);
+	
 	}
 }
  

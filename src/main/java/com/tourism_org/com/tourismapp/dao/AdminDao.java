@@ -97,14 +97,8 @@ public String Sha1Encrypt (String tobeEncrpyted) {
 	
 }
 
-//    public int DelAdmin(@PathParam("admin_id") int admin_id) {
-//    return DelAdmin(admin_id);
-//}
-
-
 
 //get an admin by admin id 
-
 public admin getaAdmin(int admin_id) {
 		
 		List<admin> admins = getAdminFromDb();
@@ -114,6 +108,7 @@ public admin getaAdmin(int admin_id) {
 				return admin;
 			}
 		}
+		 logger.info("Invalid ID");
 		return null;
 }
 
