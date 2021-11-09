@@ -34,8 +34,8 @@ import com.tourism_org.com.tourismapp.model.admin;
 		@Test
 		public void testLogin() {
 			
-			String email ="hp@hogwarts.org";
-			String password ="harry";
+			String email ="olivia@gmail.com";
+			String password ="olive";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.userAuth(email, password);
@@ -46,7 +46,7 @@ import com.tourism_org.com.tourismapp.model.admin;
 		@Test
 		public void testForgotPassword() {
 			
-			String email ="hp@hogwarts.org";
+			String email ="olivia@gmail.com";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.forgotpassword(email);
@@ -73,7 +73,6 @@ import com.tourism_org.com.tourismapp.model.admin;
 			User.setPassport("311456717");
 			User.setPassword("sophie98");			
 			
-
 			UserDao userDao = new UserDao();
 			int actual = userDao.addUser(User);
 					

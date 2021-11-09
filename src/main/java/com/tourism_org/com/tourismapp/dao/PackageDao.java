@@ -1,13 +1,7 @@
 package com.tourism_org.com.tourismapp.dao;
 
-import com.tourism_org.com.tourismapp.config.DbConnection;
-
-import com.tourism_org.com.tourismapp.model.Package;
-import com.tourism_org.com.tourismapp.model.User;
-import com.tourism_org.com.tourismapp.model.admin;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +11,15 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.tourism_org.com.tourismapp.config.DbConnection;
+import com.tourism_org.com.tourismapp.model.Package; 
+
 
 public class PackageDao {
 	
 	private Logger logger = LogManager.getLogger(PackageDao.class);
 	
-	private List<Package> packageList = new ArrayList<>();
+	//private List<Package> packageList = new ArrayList<>();
 	
 	/**
 	 * Get all the Packages.
@@ -30,24 +27,23 @@ public class PackageDao {
 	 */
 	public List<Package> getAll(){
 		
-		
 		List<Package> packages = getPackageFromDb();
 		
 		return packages;
 	}
 	
 	/**
-	 * Get a package by package_id.
-	 * @param id
+	 * Get a package by package_code.
+	 * @param String
 	 * @return
 	 */
-	public Package getAPackage(int package_id) {
+	public Package getAPackage(int package_code) {
 		
-		List<Package> packages = getPackageFromDb();
+		List <Package> packages = getPackageFromDb();
 		
-		for (Package package1 : packages) {
-			if (package1.getPackage_id() == package_id ) {
-				return package1;
+		for (Package Package1 : packages) {
+			if (Package1.getPackage_code() == package_code) {
+				return Package1;
 			}
 		}
 		return null;
@@ -69,21 +65,25 @@ public class PackageDao {
 			
 			
 			//Prepare SQL query.
-			String sql = "INSERT INTO `package` (`package_id`, `package_name`, `country`, `country_area`,`number_of_nights`,"
-					+ " `weekly_schedule`, `date`, `hotels`, `activities`, `price_per_person`) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO `package` (`package_code`, `package_name`, `country`, `country_area1`, `country_area2`,`number_of_nights`,"
+					+ " `weekly_schedule`, `start_date`, `end_date`, `hotel1`, `hotel2`, `activity1`, `activity2`, `price_per_person`)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setInt   (1, user.getPackage_id());
+			stmt.setInt(1, user.getPackage_code());
 			stmt.setString(2, user.getPackage_name());
 			stmt.setString(3, user.getCountry());
-			stmt.setString(4, user.getCountry_area());
-			stmt.setString(5, user.getNumber_of_nights());
-			stmt.setString(6, user.getWeekly_schedule());
-			stmt.setString  (7, user.getDate());
-			stmt.setString(8, user.getHotels());
-			stmt.setString(9, user.getActivities());
-			stmt.setString(10, user.getPrice_per_person());
+			stmt.setString(4, user.getCountry_area1());
+			stmt.setString(5, user.getCountry_area2());
+			stmt.setString(6, user.getNumber_of_nights());
+			stmt.setString(7, user.getWeekly_schedule());
+			stmt.setString(8, user.getStart_date());
+			stmt.setString(9, user.getEnd_date());
+			stmt.setString(10, user.getHotel1());
+			stmt.setString(11, user.getHotel2());
+			stmt.setString(12, user.getActivity1());
+			stmt.setString(13, user.getActivity2());
+			stmt.setString(14, user.getPrice_per_person());
 			
 			
 			int response = stmt.executeUpdate();
@@ -101,18 +101,38 @@ public class PackageDao {
 		return 1;
 	}
 	
-	public int deleteUser(Package user) {
-		try {
-			if (user != null) {
-				packageList.remove(user);
-				return 1;
+	public Package deletePackage(int package_code) {
+		
+		 Connection connection = DbConnection.getInstance().getConnection();
+			
+		 try {		
+		  Class.forName("com.mysql.cj.jdbc.Driver");
+	      String sql ="delete from package where package_code = ?";
+	      PreparedStatement stmt = connection.prepareStatement(sql);
+	      stmt.setInt(1, package_code);
+	      
+	     stmt.executeUpdate();
+	    	  
+	    
+		return null;
+		
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		 
+	/**	try {
+			if (package_code != null) {
+				packageList.remove(package_code);
+				return "1";
 			} else {
-				return 0;
+				return "0";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
-		}
+			return "-1";
+		} */
 	}
 	
 	
@@ -133,15 +153,19 @@ public class PackageDao {
 						
 			while(resultSet.next()) {
 				Package user = new Package();
-				user.setPackage_id(resultSet.getInt("package_id"));
+				user.setPackage_code(resultSet.getInt("package_code"));
 				user.setPackage_name(resultSet.getString("package_name"));
 				user.setCountry(resultSet.getString("country"));
-				user.setCountry_area(resultSet.getString("country_area"));
+				user.setCountry_area1(resultSet.getString("country_area1"));
+				user.setCountry_area2(resultSet.getString("country_area2"));
 				user.setNumber_of_nights(resultSet.getString("number_of_nights"));
 				user.setWeekly_schedule(resultSet.getString("weekly_schedule"));
-				user.setDate(resultSet.getString("date"));
-				user.setHotels(resultSet.getString("hotels"));
-				user.setActivites(resultSet.getString("activities"));
+				user.setStart_date(resultSet.getString("start_date"));
+				user.setEnd_date(resultSet.getString("end_date"));
+				user.setHotel1(resultSet.getString("hotel1"));
+				user.setHotel2(resultSet.getString("hotel2"));
+				user.setActivity1(resultSet.getString("activity1"));
+				user.setActivity2(resultSet.getString("activity2"));
 				user.setPrice_per_person(resultSet.getString("price_per_person"));
 				packageList.add(user);
 			}
@@ -154,80 +178,70 @@ public class PackageDao {
 		}
 	}
 	
-//	public Package searchpackage(String country, String number_of_nights, String weekly_schedule) {
-//
-//		Connection connection = DbConnection.getInstance().getConnection();
-//		
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//	  
-//	      
-//	      String sql ="Select * from `package` where `country` = ? and  `number_of_nights` =? and `weekly_schedule`=?;";
-//	      PreparedStatement stmt = connection.prepareStatement(sql);
-//	      stmt.setString(1,country);
-//	      stmt.setString (2, number_of_nights);
-//	      stmt.setString (3, weekly_schedule);
-//	      
-//	      ResultSet resultSet = stmt.executeQuery();
-//	      
-//	    	  int rows =0;
-//		      Package user = new Package();
-//		      while (resultSet.next()) {
-//		   
-//	    	    rows ++;
-//	    	
-//				user.setPackage_id(resultSet.getInt("package_id"));
-//				user.setPackage_name(resultSet.getString("package_name"));
-//				user.setCountry(resultSet.getString("country"));
-//				user.setCountry_area(resultSet.getString("country_area"));
-//				user.setNumber_of_nights(resultSet.getString("number_of_nights"));
-//				user.setWeekly_schedule(resultSet.getString("weekly_schedule"));
-//				user.setDate(resultSet.getString("date"));
-//				user.setHotels(resultSet.getString("hotels"));
-//				user.setActivites(resultSet.getString("activities"));
-//				user.setPrice_per_person(resultSet.getString("price_per_person"));	
-//	      }
-//	      
-//	      if (rows == 1) {
-//	    	  
-//	    	  Connection connection1 = DbConnection.getInstance().getConnection(); 
-//	    	  Class.forName("com.mysql.cj.jdbc.Driver");
-//	        
-//	    	 
-//	    	 String sql1 = "INSERT INTO `admin_login` (`email`, `admin_password`)"
-//	  				+ "VALUES ( ?, ?);";
-//	  		
-//	  		PreparedStatement stmt1 = connection1.prepareStatement(sql1);
-//	  //		stmt1.setString(1, Admin.getEmail());
-//	  	//	stmt1.setString(2, Admin.getPassword());
-//
-//	  		int res1 = stmt1.executeUpdate();
-//	  		
-//	  		//return res1;
-//
-//	    	// return Admin;
-//	    	  
-//	      } else {
-//	    	  return null;
-//	      }
-//	      
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//		}	
-//	
-	
-	private List<Package> LogFiles() {
-	//Log
-	logger.fatal("This is a FATAL log");
-	logger.error("This is a ERROR log");
-	logger.warn("This is a WARN log");
-	logger.info("This is a INFO log");
-	logger.debug("This is a DEBUG log");
-	logger.trace("This is a TRACE log");
-	
-	return packageList;
+	 public int UpdatePackage(Package package1) throws SQLException {
+		 
+		 try {
+	        String sql = "UPDATE package SET package_name = ?, country = ?, country_area1 = ?, country_area2 = ?, number_of_nights =?, weekly_schedule =?,"
+	        		+ " start_date =?,  end_date =?, hotel1 =?, hotel2 =?, activity1 =?, activity2 =?, price_per_person =?";
+	        sql += " WHERE package_code = ?";
+	        
+	        Connection conn = DbConnection.getInstance().getConnection();
+	        
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, package1.getPackage_code());
+			stmt.setString(2, package1.getPackage_name());
+			stmt.setString(3, package1.getCountry());
+			stmt.setString(4, package1.getCountry_area1());
+			stmt.setString(5, package1.getCountry_area2());
+			stmt.setString(6, package1.getNumber_of_nights());
+			stmt.setString(7, package1.getWeekly_schedule());
+			stmt.setString(8, package1.getStart_date());
+			stmt.setString(9, package1.getEnd_date());
+			stmt.setString(10, package1.getHotel1());
+			stmt.setString(11, package1.getHotel2());
+			stmt.setString(12, package1.getActivity1());
+			stmt.setString(13, package1.getActivity2());
+			stmt.setString(14, package1.getPrice_per_person());
+			
+			
+			int response = stmt.executeUpdate();
+			conn.close();
+			return response;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("SQL ERROR :  COULD NOT UPDATE DATA - "+e.getMessage());
+			return -1;
+		}
 	}
-}
+	        
+	       // connect();
+	         
+	      //  PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+	        
+	 /**       
+	        
+	        statement.setString(1, book.getTitle());
+	        statement.setString(2, book.getAuthor());
+	        statement.setFloat(3, book.getPrice());
+	        statement.setInt(4, book.getId());
+	         
+	        boolean rowUpdated = statement.executeUpdate() > 0;
+	        statement.close();
+	        disconnect();
+	        return rowUpdated;     
+	    }
+	*/
 	
+//	private List<Package> LogFiles() {
+//	//Log
+//	logger.fatal("This is a FATAL log");
+//	logger.error("This is a ERROR log");
+//	logger.warn("This is a WARN log");
+//	logger.info("This is a INFO log");
+//	logger.debug("This is a DEBUG log");
+//	logger.trace("This is a TRACE log");
+//	
+//	return packageList;
+	}
+

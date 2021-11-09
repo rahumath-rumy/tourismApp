@@ -193,39 +193,42 @@
 		}
 		
 		
-//		@PUT
-//		@Path("customer")
-//		@Consumes(MediaType.APPLICATION_JSON)
-//		//@Produces (MediaType.APPLICATION_JSON)
-//		public Response updateUser(@PathParam("Id") int id) {
-//			
-//			UserDao userDao = new UserDao();
-//			User user = userDao.getaUser(id);	
-//			
-//			if (userDao.getaUser(id) != null) {
-//				
-//				userDao.updateUser(id);
-//				Map<String, String> msg = new HashMap<>();
-//				
-//				msg.put("Success", "Your account has been updated");
-//				String jsonString = gson.toJson(msg);
-//			
-//				return Response  
-//						.status(200)
-//						.entity(jsonString)
-//						.build();
-//			
-//			} else {
-//				Map<String, String> msg = new HashMap<>();
-//				msg.put("Error"," Could not delete account");
-//				String jsonString = gson.toJson(msg);
-//				return Response  
-//						.status(401)
-//						.entity(jsonString)
-//						.build(); 
-//			}
-//	}
-//				
+		@PUT
+		@Path("/update/{id}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces (MediaType.APPLICATION_JSON)
+		public Response updateUser(@PathParam("Id") int id, User user) {
+			
+//			user.setId(id);
+//			return UserDao.updateUser(user);
+			
+			UserDao userDao = new UserDao();
+			User user1 = userDao.getaUser(id);	
+			
+			if (userDao.getaUser(id) != null) {
+				
+				userDao.getaUser(id);
+				Map<String, String> msg = new HashMap<>();
+				
+				msg.put("Success", "Your account has been updated");
+				String jsonString = gson.toJson(msg);
+			
+				return Response  
+						.status(200)
+						.entity(jsonString)
+						.build();
+			
+			} else {
+				Map<String, String> msg = new HashMap<>();
+				msg.put("Error"," Could not delete account");
+				String jsonString = gson.toJson(msg);
+				return Response  
+						.status(401)
+						.entity(jsonString)
+						.build(); 
+			}
+	}
+				
 		@DELETE
 		@Path("/{Id}")
 		public Response deluser (@PathParam("Id") int id) {

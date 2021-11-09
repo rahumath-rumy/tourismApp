@@ -1,14 +1,16 @@
 package com.tourism_org.com.tourismapp;
-import com.tourism_org.com.tourismapp.dao.AdminDao;
-import com.tourism_org.com.tourismapp.dao.PackageDao;
-import com.tourism_org.com.tourismapp.model.Package;
-import com.tourism_org.com.tourismapp.model.admin;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.google.gson.Gson;
+
+import com.tourism_org.com.tourismapp.dao.PackageDao;
+import com.tourism_org.com.tourismapp.dao.UserDao;
+import com.tourism_org.com.tourismapp.model.Package;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -36,21 +38,23 @@ public class PackageResource {
 				.build();
 	}
 	
-	@Path("/{package_id}")
+	@Path("/{package_code}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAnItem(@PathParam("package_id") int id) {
+	public Response getAPackage(@PathParam("package_code") int package_code) {
 		PackageDao packageDao = new PackageDao();
-		Package package1 = packageDao.getAPackage(id);
+		Package package1 = packageDao.getAPackage(package_code);
+		
 		if(package1 != null) {
 			String jsonString = gson.toJson(package1);
 			return Response
 					.status(200)
 					.entity(jsonString)
 					.build();
+			
 		} else {
 			Map<String, String> errorMsg = new HashMap<>();
-			errorMsg.put("ERROR", "Inavlid Package id");
+			errorMsg.put("ERROR", "Invalid Package Code");
 			
 			String errorString = gson.toJson(errorMsg);
 			return Response
@@ -59,6 +63,8 @@ public class PackageResource {
 					.build();
 		}
 	}
+	
+	
 	
 	
 	@POST
@@ -74,7 +80,7 @@ public class PackageResource {
 		
 		if(res > 0) {
 			Map<String, String> msg = new HashMap<>();
-			msg.put("SUCCESS", "Package Has Been Added Successfully");
+			msg.put("SUCCESS", "New Package Record Has Been Added Successfully!");
 			String jsonString = gson.toJson(msg);
 			
 			return Response
@@ -83,7 +89,7 @@ public class PackageResource {
 					.build();
 		} else {
 			Map<String, String> msg = new HashMap<>();
-			msg.put("ERROR", "Please Enter Valid Information");
+			msg.put("ERROR", "Please Enter Valid Information?");
 			String jsonString = gson.toJson(msg);
 			
 			return Response
@@ -93,64 +99,37 @@ public class PackageResource {
 		}
 	}
 	
-//	@Path ("/search")
-//	@GET
-//	@Consumes (MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response Search(String data) {
-//		Gson gson = new Gson();
-//		Package enter_search =gson.fromJson(data, Package.class);
-//		
-//		PackageDao packageDao = new PackageDao();
-//		Package PackageDao =packageDao.search(enter_search.getCountry(), enter_search.getNumber_of_nights(), enter_search.getWeekly_schedule());
-//		
-//		if (PackageDao != null) {
-//			Map<String, String> msg = new HashMap<>();
-//			
-//			msg.put("Success", "Your Search results!");
-//			String jsonString = gson.toJson(msg);
-//		
-//			return Response  
-//					.status(200)
-//					.entity(jsonString)
-//					.build();
-//		
-//		} else {
-//			Map<String, String> msg = new HashMap<>();
-//			msg.put("Error"," Sorry. No results were found!");
-//			String jsonString = gson.toJson(msg);
-//			return Response  
-//					.status(401)
-//					.entity(jsonString)
-//					.build(); 
-//		}
-//	}
+	@DELETE
+	@Path("/{package_code}")
+	public Response deletePackage (@PathParam("package_code") int package_code) {
 
+		PackageDao packageDao = new PackageDao();
+		packageDao.getAPackage(package_code);	
+		
+		if (packageDao.getAPackage(package_code) != null) {
+			
+			packageDao.deletePackage(package_code);
+			Map<String, String> msg = new HashMap<>();
+			
+			msg.put("Success", "Package has been deleted permanently");
+			String jsonString = gson.toJson(msg);
+		
+			return Response  
+					.status(200)
+					.entity(jsonString)
+					.build();
+		
+		} else {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("Error"," Could not delete package");
+			String jsonString = gson.toJson(msg);
+			return Response  
+					.status(401)
+					.entity(jsonString)
+					.build(); 
+		}
+}
 
-//@Path("/{country}")
-//@GET
-//@Produces(MediaType.APPLICATION_JSON)
-//public Response getSearch(@PathParam("country") String country,
-//		@PathParam("number_of_nights") String number_of_nights,
-//		@PathParam("weekly_schedule") String weekly_schedule) {
-//	
-//	PackageDao packageDao = new PackageDao();
-//	Package package1 = packageDao.getSearch(country,number_of_nights,weekly_schedule);
-//	if(package1 != null) {
-//		String jsonString = gson.toJson(package1);
-//		return Response
-//				.status(200)
-//				.entity(jsonString)
-//				.build();
-//	} else {
-//		Map<String, String> errorMsg = new HashMap<>();
-//		errorMsg.put("ERROR", "Invalid Package id");
-//		
-//		String errorString = gson.toJson(errorMsg);
-//		return Response
-//				.status(400)
-//				.entity(errorString)
-//				.build();
-//	}
-//}
+	
+
 }

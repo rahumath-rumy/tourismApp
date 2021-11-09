@@ -1,12 +1,2 @@
-21:33:14.695 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:33:14.824 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:33:14.849 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:33:14.867 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:33:14.898 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:34:13.474 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:34:13.538 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
-21:34:13.580 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:34:13.646 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:34:13.692 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:34:13.732 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
-21:34:13.765 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:29:26.115 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:31:56.554 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'

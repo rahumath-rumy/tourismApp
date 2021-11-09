@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -11,6 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.model.User;
+
+import jakarta.ws.rs.core.Response;
+
 import com.tourism_org.com.tourismapp.dao.UserDao;
 
 	
@@ -72,7 +76,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 		
-		//loginuser
+		//login to account
 		public User userAuth(String email, String password) {
 			
 			try {
@@ -132,49 +136,96 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 	      
 		} catch (Exception e) {
 			e.printStackTrace();
+			 logger.info("SQL ERROR :  Invalid data for login - "+e.getMessage());
 			return null;
 		}
 
 	}
 		
-		//update error
-		 public User updateUser(User user)  {
+//		public User updateUser (User user) {
+//
+//			if(user.getId() <= 0) {
+//				return null;
+//			}
+//			
+//			user.put(user.getId(),user);
+//				return user;
+//			}
+		
+		
+//		//update error
+		 public User updateUser(int id)  {
 			 
-			 Connection connection = DbConnection.getInstance().getConnection();   
-			 String sql = 
-				        "update customer set Fname = ?, Lname=?, Phone=?, Email=?, Address=?, Srilankan=?, Country=?, "
-				        + "Nationality=?, PassportOrNIC=?, password=? where Id=?";
+			 try {
+				 
+		     Connection connection = DbConnection.getInstance().getConnection(); 
+			 
+			 String sql =  "UPDATE customer SET Fname = ?, Lname=?, Phone=?, Email=?, Address=?, Srilankan=?, Country=?, "
+		        + "Nationality=?, PassportOrNIC=?, password=? WHERE Id=?";
+			
+			 PreparedStatement stmt = connection.prepareStatement(sql);
+			 
+			 User user = null;
+			 
+			 String password = user.getPassword();
+			 String encryptedPassword = Sha1Encrypt (password);
+			 
+				
+				stmt.setString(1, user.getFname());
+				stmt.setString(2, user.getLname());
+				stmt.setInt(3, user.getPhone());
+				stmt.setString(4, user.getEmail());
+				stmt.setString(5, user.getAddress());
+				stmt.setBoolean(6, user.isSrilankan());
+				stmt.setString(7, user.getCountry());
+				stmt.setString(8, user.getNationality());
+				stmt.setString(9, user.getPassport());
+				stmt.setString(10, encryptedPassword);
+
+			  
+			 int rowsUpdated = stmt.executeUpdate();
+			 if (rowsUpdated > 0) {
+			     System.out.println("An existing user was updated successfully!");
+			 
+			 } connection.close();
+			 }catch (SQLException ex){
+				 ex.printStackTrace();
+			 }
+		 }
+			 
+			 
+				        
 		          
-		        try {
-		        	Class.forName("com.mysql.cj.jdbc.Driver");
-		        	
-		        	PreparedStatement stmt = connection.prepareStatement(sql);
-		        	
-		        	String password = user.getPassword();
-		        	 String encryptedPassword = Sha1Encrypt (password);
-		    
-		    
-		        	stmt.setString(1, user.getFname());
-					stmt.setString(2, user.getLname());
-					stmt.setInt(3, user.getPhone());
-					stmt.setString(4, user.getEmail());
-					stmt.setString(5, user.getAddress());
-					stmt.setBoolean(6, user.isSrilankan());
-					stmt.setString(7, user.getCountry());
-					stmt.setString(8, user.getNationality());
-					stmt.setString(9, user.getPassport());
-					stmt.setString(10, encryptedPassword);
-					stmt.setInt(11, user.getId());
-		            stmt.executeUpdate();
-		       
-			  return null;
-					
-				}
-					catch (Exception e) {
-					e.printStackTrace();
-					return null;
-				}
-			}	
+//		        try {
+//		        	Class.forName("com.mysql.cj.jdbc.Driver");
+//		        	
+//		        	PreparedStatement stmt = connection.prepareStatement(sql);
+//		        	
+//		        	String password = id.getPassword();
+//		        	 String encryptedPassword = Sha1Encrypt (password);
+//		    
+//		    
+//		        	stmt.setString(1, id.getFname());
+//					stmt.setString(2, id.getLname());
+//					stmt.setInt(3, id.getPhone());
+//					stmt.setString(4, id.getEmail());
+//					stmt.setString(5, id.getAddress());
+//					stmt.setBoolean(6, id.isSrilankan());
+//					stmt.setString(7, id.getCountry());
+//					stmt.setString(8, id.getNationality());
+//					stmt.setString(9, id.getPassport());
+//					stmt.setString(10, encryptedPassword);
+//					stmt.setInt(11, id.getId());
+//		            stmt.executeUpdate();
+//		       
+//			  return null;
+//					
+//				}
+//					catch (Exception e) {
+//					e.printStackTrace();
+//					return null;
+//				}
+//			}	
 		 
 		 //delete a user
 		public User deluser(int id) {
