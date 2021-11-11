@@ -22,8 +22,9 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
     
     	private static Logger logger = LogManager.getLogger(UserDao.class);
 
-	
-    	//get a user
+    	/**
+    	 * Get a user from the db
+    	 */
 		public User getaUser (int id) {
 
 			List <User> users =  getUserFromDB();
@@ -39,7 +40,11 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		}
 		
 		
-		//addauser
+		/**
+		 * add user to the db
+		 * @param user
+		 * @return
+		 */
 		public int addUser (User user) { 
 			
 			try {
@@ -76,7 +81,12 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}
 		
-		//login to account
+		/**
+		 * user login to the system
+		 * @param email
+		 * @param password
+		 * @return
+		 */
 		public User userAuth(String email, String password) {
 			
 			try {
@@ -98,7 +108,70 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		    	  
 		    	    rows ++;
 		    	
-		    	    //User user = new User();
+					User.setId(resultSet.getInt("Id"));
+					User.setFname(resultSet.getString("Fname"));
+					User.setLname(resultSet.getString("Lname"));
+					User.setPhone(resultSet.getInt("Phone"));
+					User.setAddress(resultSet.getString("Address"));
+					User.setNationality(resultSet.getString("Nationality"));
+					User.setSrilankan(resultSet.getBoolean("Srilankan"));
+					User.setCountry(resultSet.getString("Country"));
+					User.setEmail(resultSet.getString("Email"));
+					User.setPassport(resultSet.getString("PassportOrNIC"));
+					User.setPassword(resultSet.getString("password"));
+		    	  
+		      }
+		      
+	      if (rows == 1) {
+		        	  
+		    	 Class.forName("com.mysql.cj.jdbc.Driver");
+		         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+		    	    	 
+		         String sql1 = "INSERT INTO `customer_login` (`loginid`,`Email`, `password`)"
+		    	  				+ "VALUES (?,?,?);";
+		    	  		
+		  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
+	   	 
+				stmt1.setString(1, User.getLoginid());
+	   	  		stmt1.setString(2, User.getEmail());
+		  		stmt1.setString(3, User.getPassword());
+
+		    	int resultSet1 = stmt1.executeUpdate();		    	  		
+	    	  	return User;
+		  
+	      } else {
+	    	  return null;
+	      }
+	      
+		} catch (Exception e) {
+			e.printStackTrace();
+			 logger.info("SQL ERROR :  Invalid data for login - "+e.getMessage());
+			return null;
+		}
+
+	}
+		
+		public User bookings (String email, String password) {
+			
+			try {
+			  Class.forName("com.mysql.cj.jdbc.Driver");
+		      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
+		    
+		      String encryptedPassword = Sha1Encrypt (password);
+		      
+		      String sql ="Select * from `customer` where `Email` = ? and `password`=?";
+		      PreparedStatement stmt = conn.prepareStatement(sql);
+		      stmt.setString(1,email);
+		      stmt.setString (2, encryptedPassword);
+		      
+		      ResultSet resultSet = stmt.executeQuery();
+		      
+		      int rows =0;
+		      User User = new User();
+		      while (resultSet.next()) {
+		    	  
+		    	    rows ++;
+		    	
 					User.setId(resultSet.getInt("Id"));
 					User.setFname(resultSet.getString("Fname"));
 					User.setLname(resultSet.getString("Lname"));
@@ -153,45 +226,45 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 //			}
 		
 		
-//		//update error
-		 public User updateUser(int id)  {
-			 
-			 try {
-				 
-		     Connection connection = DbConnection.getInstance().getConnection(); 
-			 
-			 String sql =  "UPDATE customer SET Fname = ?, Lname=?, Phone=?, Email=?, Address=?, Srilankan=?, Country=?, "
-		        + "Nationality=?, PassportOrNIC=?, password=? WHERE Id=?";
-			
-			 PreparedStatement stmt = connection.prepareStatement(sql);
-			 
-			 User user = null;
-			 
-			 String password = user.getPassword();
-			 String encryptedPassword = Sha1Encrypt (password);
-			 
-				
-				stmt.setString(1, user.getFname());
-				stmt.setString(2, user.getLname());
-				stmt.setInt(3, user.getPhone());
-				stmt.setString(4, user.getEmail());
-				stmt.setString(5, user.getAddress());
-				stmt.setBoolean(6, user.isSrilankan());
-				stmt.setString(7, user.getCountry());
-				stmt.setString(8, user.getNationality());
-				stmt.setString(9, user.getPassport());
-				stmt.setString(10, encryptedPassword);
-
-			  
-			 int rowsUpdated = stmt.executeUpdate();
-			 if (rowsUpdated > 0) {
-			     System.out.println("An existing user was updated successfully!");
-			 
-			 } connection.close();
-			 }catch (SQLException ex){
-				 ex.printStackTrace();
-			 }
-		 }
+//	//update error
+//		 public User updateUser(int id)  {
+//			 
+//			 try {
+//				 
+//		     Connection connection = DbConnection.getInstance().getConnection(); 
+//			 
+//			 String sql =  "UPDATE customer SET Fname = ?, Lname=?, Phone=?, Email=?, Address=?, Srilankan=?, Country=?, "
+//		        + "Nationality=?, PassportOrNIC=?, password=? WHERE Id=?";
+//			
+//			 PreparedStatement stmt = connection.prepareStatement(sql);
+//			 
+//			 User user = null;
+//			 
+//			 String password = user.getPassword();
+//			 String encryptedPassword = Sha1Encrypt (password);
+//			 
+//				
+//				stmt.setString(1, user.getFname());
+//				stmt.setString(2, user.getLname());
+//				stmt.setInt(3, user.getPhone());
+//				stmt.setString(4, user.getEmail());
+//				stmt.setString(5, user.getAddress());
+//				stmt.setBoolean(6, user.isSrilankan());
+//				stmt.setString(7, user.getCountry());
+//				stmt.setString(8, user.getNationality());
+//				stmt.setString(9, user.getPassport());
+//				stmt.setString(10, encryptedPassword);
+//
+//			  
+//			 int rowsUpdated = stmt.executeUpdate();
+//			 if (rowsUpdated > 0) {
+//			     System.out.println("An existing user was updated successfully!");
+//			 
+//			 } connection.close();
+//			 }catch (SQLException ex){
+//				 ex.printStackTrace();
+//			 }
+//		 }
 			 
 			 
 				        
@@ -227,7 +300,11 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 //				}
 //			}	
 		 
-		 //delete a user
+		/**
+		 * Delete user from the db
+		 * @param id
+		 * @return
+		 */
 		public User deluser(int id) {
 
 			 Connection connection = DbConnection.getInstance().getConnection();	
@@ -250,7 +327,10 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			}
 		}	
 		
-		//get all the users from db
+		/**
+		 * get all the users who have registered.
+		 * @return
+		 */
 		public static List<User> getUserFromDB()   {
 			
 			List <User> userList = new ArrayList<>();
@@ -292,7 +372,11 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 		}
 
 		
-		//user forgot password
+		/**
+		 * user forgot password
+		 * @param email
+		 * @return
+		 */
 		public User forgotpassword(String email) {
 			try {
 				  Class.forName("com.mysql.cj.jdbc.Driver");
@@ -383,118 +467,5 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			
 		}
 		
-		public User Payment (String email) {
-			
-			Connection connection = DbConnection.getInstance().getConnection();
-			
-			try {
-				  Class.forName("com.mysql.cj.jdbc.Driver");
-			      String sql ="Select * from `customer` where `Email` = ?";
-			     
-			      PreparedStatement stmt = connection.prepareStatement(sql);
-			      stmt.setString(1,email);
-			      
-			      ResultSet resultSet = stmt.executeQuery();
-			      
-			      int rows =0;
-			      User User = new User();
-			      while (resultSet.next()) {
-			    	  
-			    	    rows ++;
-			    	
-						User.setId(resultSet.getInt("Id"));
-						User.setFname(resultSet.getString("Fname"));
-						User.setLname(resultSet.getString("Lname"));
-						User.setPhone(resultSet.getInt("Phone"));
-						User.setEmail(resultSet.getString("Email"));
-						User.setAddress(resultSet.getString("Address"));
-						User.setSrilankan(resultSet.getBoolean("Srilankan"));
-						User.setCountry(resultSet.getString("Country"));
-						User.setNationality(resultSet.getString("Nationality"));
-						User.setPassport(resultSet.getString("PassportOrNIC"));
-						User.setPassword(resultSet.getString("password"));
-			    	  
-			      }
-			      
-		      if (rows == 1) {
-			   	return User;
-			  
-		      } else {
-		    	return null;
-		      }
-		      
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;	
-			}
-
-		}
-		
-		public int payment (User user) { 
-			
-			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-				
-				String sql = "INSERT INTO `payment` (`Id`, `Package_Id`, `CardType`, `card_no`, `CVV`,  `exp_date`,  `Payment_date`, `Amount_paid`) "
-						+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
-				
-				PreparedStatement stmt = connection.prepareStatement(sql);
-				stmt.setInt(1, user.getId());
-				//stmt.setString(2, user.packageID());
-				stmt.setInt(3, user.getCardType());
-				stmt.setInt(4, user.getCardNo());
-				stmt.setInt(5, user.getCvv());
-				stmt.setString(6, user.getExp_date());
-				stmt.setString(7, user.getPaymentdate());
-				stmt.setFloat(8, user.getAmountpaid());
-				
-		
-				int response = stmt.executeUpdate();
-				return response;
-				
-		     	} catch (Exception e) {
-			    	e.printStackTrace();
-				    logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
-				    return -1; 
-			}
-		}
-
-		
-//		public User getpaymentuser (int id) {
-//
-//			List <User> users =  getUserFromDB();
-//			 
-//			 for(User user:users) {
-//				 if (user.getId() == id) {
-//					 
-//					 try {
-//							Class.forName("com.mysql.cj.jdbc.Driver");
-//							Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-//							
-//							String sql = "INSERT INTO `payment` (`Id`, `Package_Id`, `CardType`, `card_no`, `CVV`,  `exp_date`,  `Payment_date`, `Amount_paid`) "
-//									+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
-//							
-//							PreparedStatement stmt = connection.prepareStatement(sql);
-//							stmt.setInt(1, user.getId());
-//							//stmt.setString(2, user.packageID());
-//							stmt.setInt(3, user.getCardType());
-//							stmt.setInt(4, user.getCardNo());
-//							stmt.setInt(5, user.getCvv());
-//							stmt.setString(6, user.getExp_date());
-//							stmt.setString(7, user.getPaymentdate());
-//							stmt.setFloat(8, user.getAmountpaid());
-//							
-//					
-//							int response = stmt.executeUpdate();
-//							return user;
-//							
-//				 } catch (Exception e) {
-//				    	e.printStackTrace();
-//					    logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
-//					    return null;
-//					    	
-//		}
-				 
 		}	
    

@@ -157,6 +157,38 @@
 			}
 		}
 		
+		@Path ("/userlogin/booking")
+		@GET
+		@Consumes (MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response bookings(String data) {
+			Gson gson = new Gson();
+			User enter_user = gson.fromJson(data, User.class);
+			
+			UserDao userDao = new UserDao();
+			User user = userDao.userAuth(enter_user .getEmail(), enter_user.getPassword());
+			
+			if (user != null) {
+				Map  <String, String> msg = new HashMap<>();
+				
+				msg.put("Success", "You have logged in!");
+				String jsonString = gson.toJson(msg);
+			
+				return Response  
+						.status(200)
+						.entity(jsonString)
+						.build();
+			
+			} else {
+				Map<String, String> msg = new HashMap<>();
+				msg.put("Error"," Invalid login. Please try again!");
+				String jsonString = gson.toJson(msg);
+				return Response  
+						.status(401)
+						.entity(jsonString)
+						.build(); 
+			}
+		}
 		
 	
 		@Path ("/forgotpassword")

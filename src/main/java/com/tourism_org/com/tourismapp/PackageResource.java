@@ -9,10 +9,13 @@ import com.google.gson.Gson;
 import com.tourism_org.com.tourismapp.dao.PackageDao;
 import com.tourism_org.com.tourismapp.dao.UserDao;
 import com.tourism_org.com.tourismapp.model.Package;
+import com.tourism_org.com.tourismapp.model.User;
+
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -38,23 +41,21 @@ public class PackageResource {
 				.build();
 	}
 	
-	@Path("/{package_code}")
+	@Path("{package_code}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAPackage(@PathParam("package_code") int package_code) {
+	public Response getAnItem(@PathParam("package_code") int package_code) {
 		PackageDao packageDao = new PackageDao();
 		Package package1 = packageDao.getAPackage(package_code);
-		
 		if(package1 != null) {
 			String jsonString = gson.toJson(package1);
 			return Response
 					.status(200)
 					.entity(jsonString)
 					.build();
-			
 		} else {
 			Map<String, String> errorMsg = new HashMap<>();
-			errorMsg.put("ERROR", "Invalid Package Code");
+			errorMsg.put("ERROR", "Inavlid Package Code");
 			
 			String errorString = gson.toJson(errorMsg);
 			return Response
@@ -65,7 +66,58 @@ public class PackageResource {
 	}
 	
 	
+	@GET
+	@Path("/search")
+	public Response getAnItem(
+			@PathParam("country") String country,
+			@PathParam("number_of_nights") String number_of_nights, 
+			@PathParam("start_date") String start_date) {
+		
+			PackageDao packageDao = new PackageDao();
+			Package package1 = packageDao.searchPackage(country);
+			if(package1 != null) {
+				String jsonString = gson.toJson(package1);
+				return Response
+						.status(200)
+						.entity(jsonString)
+						.build();
+			} else {
+				Map<String, String> errorMsg = new HashMap<>();
+				errorMsg.put("ERROR", "Inavlid Package Code");
+				
+				String errorString = gson.toJson(errorMsg);
+				return Response
+						.status(400)
+						.entity(errorString)
+						.build();
+			}
+		}
+
+	UserDao userDao = new UserDao();
+	User user = userDao.
 	
+	if (user != null) {
+		Map  <String, String> msg = new HashMap<>();
+		
+		msg.put("Success", "You have logged in!");
+		String jsonString = gson.toJson(msg);
+	
+		return Response  
+				.status(200)
+				.entity(jsonString)
+				.build();
+	
+	} else {
+		Map<String, String> msg = new HashMap<>();
+		msg.put("Error"," Invalid login. Please try again!");
+		String jsonString = gson.toJson(msg);
+		return Response  
+				.status(401)
+				.entity(jsonString)
+				.build(); 
+	}
+}
+
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON) // request data type
@@ -99,8 +151,45 @@ public class PackageResource {
 		}
 	}
 	
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON) // request data type
+	@Produces(MediaType.APPLICATION_JSON)
+	
+	public Response updatePackage(String jsonData) {
+	
+	Gson gson = new Gson();
+	Package package1 = gson.fromJson(jsonData, Package.class);
+	
+		PackageDao packageDao = new PackageDao();
+		int Pack = packageDao.UpdatePackage(package1);
+		
+		if(Pack > 0) {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("SUCCESS", " Package Record Has Been Updated Successfully!");
+			String jsonString = gson.toJson(msg);
+			
+			return Response
+					.status(200)
+					.entity(jsonString)
+					.build();
+		} else {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("ERROR", "Please Enter Valid Information?");
+			String jsonString = gson.toJson(msg);
+			
+			return Response
+					.status(400)
+					.entity(jsonString)
+					.build();
+		}
+
+	}
+	
+	
 	@DELETE
 	@Path("/{package_code}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deletePackage (@PathParam("package_code") int package_code) {
 
 		PackageDao packageDao = new PackageDao();
@@ -128,8 +217,9 @@ public class PackageResource {
 					.entity(jsonString)
 					.build(); 
 		}
-}
-
+	}
 	
 
+	
 }
+
