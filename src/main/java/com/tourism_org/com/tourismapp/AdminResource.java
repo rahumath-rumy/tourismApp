@@ -10,7 +10,9 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
+import com.tourism_org.com.tourismapp.dao.PackageDao;
 import com.tourism_org.com.tourismapp.dao.UserDao;
+import com.tourism_org.com.tourismapp.model.Package;
 import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
 
@@ -20,6 +22,7 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -187,12 +190,41 @@ public class AdminResource {
 		}
 	}
 	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON) // request data type
+	@Produces(MediaType.APPLICATION_JSON)
 	
+	public Response updateAdmin(String jsonData) {
 	
-//	public int updateAdmin(admin Admin) {
-//		return 1;
-//	}
-//	
+	Gson gson = new Gson();
+	admin admin = gson.fromJson(jsonData, admin.class);
+	
+	AdminDao adminDao = new AdminDao();
+	int Admin = adminDao.UpdateAdmin(admin);
+		
+		
+		if(Admin > 0) {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("SUCCESS", " Your Record has been updated successfully!");
+			String jsonString = gson.toJson(msg);
+			
+			return Response
+					.status(200)
+					.entity(jsonString)
+					.build();
+		} else {
+			Map<String, String> msg = new HashMap<>();
+			msg.put("ERROR", "I am sorry. Your record has not been updated! ");
+			String jsonString = gson.toJson(msg);
+			
+			return Response
+					.status(400)
+					.entity(jsonString)
+					.build();
+		}
+
+	}
+	
 	
 	@DELETE
 	@Path("/{admin_id}")

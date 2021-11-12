@@ -266,7 +266,7 @@ public class custompackage {
 	  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
    	 
 			stmt1.setString(1, customPackages.getCp_code());
-	  		stmt1.setBoolean(2, customPackages.getStatus());
+	  		stmt1.setBoolean(2, customPackages.isStatus());
 
 	    	int resultSet1 = stmt1.executeUpdate();		    	  		
     	  	return customPackages;

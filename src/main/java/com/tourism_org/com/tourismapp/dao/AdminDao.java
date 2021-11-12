@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import com.tourism_org.com.tourismapp.config.DbConnection;
 //import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
+import com.tourism_org.com.tourismapp.model.Package;
 import com.tourism_org.com.tourismapp.model.admin;
 
 import jakarta.ws.rs.PathParam;
@@ -25,8 +26,10 @@ public class AdminDao {
 	
 	private List <admin> adminList = new ArrayList<>();
 	
-	
-//	//get all the users
+	/**
+	 * get all the admin details
+	 * @return
+	 */
 	public List<admin> getAll(){
 		
 		List<admin> admin = getAdminFromDb();
@@ -35,20 +38,21 @@ public class AdminDao {
 	}
 
  
-//post request
-public int addAdmin(admin Admin) {
+	/**
+	 * add admin into the db
+	 * @param Admin
+	 * @return
+	 */
+	public int addAdmin(admin Admin) {
 	
 	Connection connection = DbConnection.getInstance().getConnection();
 	
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-	    //Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
 		
 	    String password = Admin.getPassword();
 	    String encryptedPassword =  Sha1Encrypt (password);
 	    
-	    
-	    //Prepare SQL query.
 		String sql = "INSERT INTO `admin` (`admin_id`,`admin_fname`,`admin_lname`, `email`,`mobile`,`address`,`admin_control`, `admin_password`)"
 				+ "VALUES (?, ?, ?, ?, ?,?,?,?);";
 		
@@ -66,28 +70,26 @@ public int addAdmin(admin Admin) {
 		
 		return res;
 		
-	} catch (Exception e) {
-		e.printStackTrace();
-		logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("SQL ERROR :  Could not insert data - "+e.getMessage());
 		return -1;
 	}
 }
 
 
-public String Sha1Encrypt (String tobeEncrpyted) {
+	public String Sha1Encrypt (String tobeEncrpyted) {
    
-	try {
-	byte[] passwordArr = tobeEncrpyted.getBytes();
+		try {
+			byte[] passwordArr = tobeEncrpyted.getBytes();
     
-    MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
-    byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
-    
+			MessageDigest sha1Encrypt = MessageDigest.getInstance("SHA-1");
+			byte[] encryptPassword = sha1Encrypt.digest (passwordArr);
  
     
-    String s = Base64.getEncoder().encodeToString(encryptPassword);
+			String s = Base64.getEncoder().encodeToString(encryptPassword);
     	
-    
-    return s;
+			return s;
 	
 	} 	catch (Exception e) { 
 		e.printStackTrace();
@@ -97,9 +99,12 @@ public String Sha1Encrypt (String tobeEncrpyted) {
 	
 }
 
-
-//get an admin by admin id 
-public admin getaAdmin(int admin_id) {
+	/**
+	 * get Admin details by the ID
+	 * @param admin_id
+	 * @return
+	 */
+	public admin getaAdmin(int admin_id) {
 		
 		List<admin> admins = getAdminFromDb();
 
@@ -113,8 +118,13 @@ public admin getaAdmin(int admin_id) {
 }
 
 
-//check login authorization
-public admin adminAuth(String email, String password) {
+	/**
+	 * login authorzation for admins.
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	public admin adminAuth(String email, String password) {
 
 	Connection connection = DbConnection.getInstance().getConnection();
 	
@@ -161,20 +171,24 @@ public admin adminAuth(String email, String password) {
 
   		int res1 = stmt1.executeUpdate();
   		
-  		//return res1;
-
     	 return Admin;
     	  
       } else {
     	  return null;
       }
       
-	} catch (Exception e) {
-		e.printStackTrace();
-		return null;
-	}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
+	
+	/**
+	 * Admin forgets password
+	 * @param email
+	 * @return
+	 */
 	public admin forgotpassword(String email) {
 		
 		Connection connection = DbConnection.getInstance().getConnection();
@@ -219,7 +233,9 @@ public admin adminAuth(String email, String password) {
 		
 }
 	
-public List<admin> getAdminFromDb(){
+	
+	
+	public List<admin> getAdminFromDb(){
 	
 	Connection connection = DbConnection.getInstance().getConnection();
 	List<admin> adminList = new ArrayList<>();
@@ -255,6 +271,9 @@ public List<admin> getAdminFromDb(){
 
 }
 	
+	/**
+	 * delete admin from the Db
+	 */
 	public admin deladmin(int admin_id) {
 
 		 Connection connection = DbConnection.getInstance().getConnection();	
@@ -277,5 +296,44 @@ public List<admin> getAdminFromDb(){
 			return null;
 		}
 	}
+	/**
+	 * update admin details
+	 * @param package1
+	 * @return
+	 */
+	public int UpdateAdmin(admin admin) {
 		
+		 try {
+			 
+			 	String password = admin.getPassword();
+			   String encryptedPassword =  Sha1Encrypt (password);
+			    
+	        String sql = "UPDATE admin SET `admin_fname` = ?, `admin_lname` = ?, `email` = ?, "
+	        		+ "`mobile` = ?, `address` = ?, `admin_control` =?, `admin_password` =?"
+	        		+ " WHERE `admin_id` = ?";
+	        
+	        Connection conn = DbConnection.getInstance().getConnection();
+	        
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        
+			stmt.setInt(8, admin.getAdmin_id());
+			stmt.setString(1, admin.getFname());
+			stmt.setString(2, admin.getLname());
+			stmt.setString(3, admin.getEmail());
+			stmt.setInt(4, admin.getMobile());
+			stmt.setString(5, admin.getAddress());
+			stmt.setBoolean(6, admin.isAdmin_control());
+			stmt.setString(7, encryptedPassword);
+			
+			int response = stmt.executeUpdate();
+			conn.close();
+			return response;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("SQL ERROR :  COULD NOT UPDATE ADMIN DATA - "+e.getMessage());
+			return -1;
+		}
+	}
+	
 }

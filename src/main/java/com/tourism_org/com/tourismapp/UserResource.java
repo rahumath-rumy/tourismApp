@@ -226,41 +226,40 @@
 		
 		
 		@PUT
-		@Path("/update/{id}")
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces (MediaType.APPLICATION_JSON)
-		public Response updateUser(@PathParam("Id") int id, User user) {
+		@Consumes(MediaType.APPLICATION_JSON) 
+		@Produces(MediaType.APPLICATION_JSON)
+		
+		public Response updateUser(String jsonData) {
+		
+		Gson gson = new Gson();
+		User User = gson.fromJson(jsonData, User.class);
+		
+		UserDao userDao = new UserDao();
+		int user = userDao.UpdateUser(User);
 			
-//			user.setId(id);
-//			return UserDao.updateUser(user);
 			
-			UserDao userDao = new UserDao();
-			User user1 = userDao.getaUser(id);	
-			
-			if (userDao.getaUser(id) != null) {
-				
-				userDao.getaUser(id);
+			if(user > 0) {
 				Map<String, String> msg = new HashMap<>();
-				
-				msg.put("Success", "Your account has been updated");
+				msg.put("SUCCESS", " Your Record has been updated successfully!");
 				String jsonString = gson.toJson(msg);
-			
-				return Response  
+				
+				return Response
 						.status(200)
 						.entity(jsonString)
 						.build();
-			
 			} else {
 				Map<String, String> msg = new HashMap<>();
-				msg.put("Error"," Could not delete account");
+				msg.put("ERROR", "I am sorry. Your record has not been updated! ");
 				String jsonString = gson.toJson(msg);
-				return Response  
-						.status(401)
-						.entity(jsonString)
-						.build(); 
-			}
-	}
 				
+				return Response
+						.status(400)
+						.entity(jsonString)
+						.build();
+			}
+
+		}
+		
 		@DELETE
 		@Path("/{Id}")
 		public Response deluser (@PathParam("Id") int id) {

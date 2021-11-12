@@ -7,10 +7,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 import com.tourism_org.com.tourismapp.dao.PackageDao;
-import com.tourism_org.com.tourismapp.dao.UserDao;
 import com.tourism_org.com.tourismapp.model.Package;
-import com.tourism_org.com.tourismapp.model.User;
-
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -66,58 +63,7 @@ public class PackageResource {
 	}
 	
 	
-	@GET
-	@Path("/search")
-	public Response getAnItem(
-			@PathParam("country") String country,
-			@PathParam("number_of_nights") String number_of_nights, 
-			@PathParam("start_date") String start_date) {
-		
-			PackageDao packageDao = new PackageDao();
-			Package package1 = packageDao.searchPackage(country);
-			if(package1 != null) {
-				String jsonString = gson.toJson(package1);
-				return Response
-						.status(200)
-						.entity(jsonString)
-						.build();
-			} else {
-				Map<String, String> errorMsg = new HashMap<>();
-				errorMsg.put("ERROR", "Inavlid Package Code");
-				
-				String errorString = gson.toJson(errorMsg);
-				return Response
-						.status(400)
-						.entity(errorString)
-						.build();
-			}
-		}
-
-	UserDao userDao = new UserDao();
-	User user = userDao.
 	
-	if (user != null) {
-		Map  <String, String> msg = new HashMap<>();
-		
-		msg.put("Success", "You have logged in!");
-		String jsonString = gson.toJson(msg);
-	
-		return Response  
-				.status(200)
-				.entity(jsonString)
-				.build();
-	
-	} else {
-		Map<String, String> msg = new HashMap<>();
-		msg.put("Error"," Invalid login. Please try again!");
-		String jsonString = gson.toJson(msg);
-		return Response  
-				.status(401)
-				.entity(jsonString)
-				.build(); 
-	}
-}
-
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON) // request data type
@@ -187,6 +133,9 @@ public class PackageResource {
 	}
 	
 	
+	
+	
+	
 	@DELETE
 	@Path("/{package_code}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -222,4 +171,3 @@ public class PackageResource {
 
 	
 }
-

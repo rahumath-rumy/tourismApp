@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.model.User;
+import com.tourism_org.com.tourismapp.model.admin;
 
 import jakarta.ws.rs.core.Response;
 
@@ -215,90 +216,49 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 
 	}
 		
-//		public User updateUser (User user) {
-//
-//			if(user.getId() <= 0) {
-//				return null;
-//			}
-//			
-//			user.put(user.getId(),user);
-//				return user;
-//			}
+
 		
-		
-//	//update error
-//		 public User updateUser(int id)  {
-//			 
-//			 try {
-//				 
-//		     Connection connection = DbConnection.getInstance().getConnection(); 
-//			 
-//			 String sql =  "UPDATE customer SET Fname = ?, Lname=?, Phone=?, Email=?, Address=?, Srilankan=?, Country=?, "
-//		        + "Nationality=?, PassportOrNIC=?, password=? WHERE Id=?";
-//			
-//			 PreparedStatement stmt = connection.prepareStatement(sql);
-//			 
-//			 User user = null;
-//			 
-//			 String password = user.getPassword();
-//			 String encryptedPassword = Sha1Encrypt (password);
-//			 
-//				
-//				stmt.setString(1, user.getFname());
-//				stmt.setString(2, user.getLname());
-//				stmt.setInt(3, user.getPhone());
-//				stmt.setString(4, user.getEmail());
-//				stmt.setString(5, user.getAddress());
-//				stmt.setBoolean(6, user.isSrilankan());
-//				stmt.setString(7, user.getCountry());
-//				stmt.setString(8, user.getNationality());
-//				stmt.setString(9, user.getPassport());
-//				stmt.setString(10, encryptedPassword);
-//
-//			  
-//			 int rowsUpdated = stmt.executeUpdate();
-//			 if (rowsUpdated > 0) {
-//			     System.out.println("An existing user was updated successfully!");
-//			 
-//			 } connection.close();
-//			 }catch (SQLException ex){
-//				 ex.printStackTrace();
-//			 }
-//		 }
-			 
-			 
-				        
-		          
-//		        try {
-//		        	Class.forName("com.mysql.cj.jdbc.Driver");
-//		        	
-//		        	PreparedStatement stmt = connection.prepareStatement(sql);
-//		        	
-//		        	String password = id.getPassword();
-//		        	 String encryptedPassword = Sha1Encrypt (password);
-//		    
-//		    
-//		        	stmt.setString(1, id.getFname());
-//					stmt.setString(2, id.getLname());
-//					stmt.setInt(3, id.getPhone());
-//					stmt.setString(4, id.getEmail());
-//					stmt.setString(5, id.getAddress());
-//					stmt.setBoolean(6, id.isSrilankan());
-//					stmt.setString(7, id.getCountry());
-//					stmt.setString(8, id.getNationality());
-//					stmt.setString(9, id.getPassport());
-//					stmt.setString(10, encryptedPassword);
-//					stmt.setInt(11, id.getId());
-//		            stmt.executeUpdate();
-//		       
-//			  return null;
-//					
-//				}
-//					catch (Exception e) {
-//					e.printStackTrace();
-//					return null;
-//				}
-//			}	
+		/**
+		 * update User details
+		 * @param package1
+		 * @return
+		 */
+		public int UpdateUser(User User) {
+			
+			 try {
+				 
+				 String password = User.getPassword();
+				 String encryptedPassword = Sha1Encrypt (password);
+				    
+				 String sql =  "UPDATE customer SET `Fname` = ?, `Lname`=?, `Phone`=?, `Email`=?, `Address`=?, `Srilankan`=?,"
+				 		+ " `Country`=?, `Nationality`=?, `PassportOrNIC`=?, `password`=? WHERE `Id`=?";
+					
+				Connection conn = DbConnection.getInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql);
+			
+							
+				stmt.setString(1, User.getFname());
+				stmt.setString(2, User.getLname());
+				stmt.setInt(3, User.getPhone());
+				stmt.setString(4, User.getEmail());
+				stmt.setString(5, User.getAddress());
+				stmt.setBoolean(6, User.isSrilankan());
+				stmt.setString(7, User.getCountry());
+				stmt.setString(8, User.getNationality());
+				stmt.setString(9, User.getPassport());
+				stmt.setString(10, encryptedPassword);
+				stmt.setInt(11, User.getId());
+				
+				int response = stmt.executeUpdate();
+				conn.close();
+				return response;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("SQL ERROR :  COULD NOT UPDATE USER DATA - "+e.getMessage());
+				return -1;
+			}
+		}
 		 
 		/**
 		 * Delete user from the db

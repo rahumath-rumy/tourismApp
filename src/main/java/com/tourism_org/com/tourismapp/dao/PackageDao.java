@@ -1,8 +1,7 @@
 package com.tourism_org.com.tourismapp.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-//import java.sql.Date;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,8 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.tourism_org.com.tourismapp.config.DbConnection;
-import com.tourism_org.com.tourismapp.model.Package;
-import com.tourism_org.com.tourismapp.model.User; 
+import com.tourism_org.com.tourismapp.model.Package; 
 
 
 public class PackageDao {
@@ -52,7 +50,6 @@ public class PackageDao {
 		return null;
 	}
 	
-
 	/**
 	 * Add Package into the system.
 	 * @param user
@@ -97,15 +94,7 @@ public class PackageDao {
 			return -1;
 		}
 	}
-	
-	/**
-	 * Update a package
-	 * @param package1
-	 * @return
-	 */
-	public Package updatePackage(Package package1){
-		return null;
-	}
+
 	
 	/**
 	 * Delete a package
@@ -133,17 +122,6 @@ public class PackageDao {
 			return null;
 		}
 		 
-	/**	try {
-			if (package_code != null) {
-				packageList.remove(package_code);
-				return "1";
-			} else {
-				return "0";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "-1";
-		} */
 	}
 	
 	
@@ -193,29 +171,29 @@ public class PackageDao {
 	 public int UpdatePackage(Package package1) /** throws SQLException */ {
 		 
 		 try {
-	        String sql = "UPDATE package SET package_codename = ?, package_name = ?, country = ?, country_area1 = ?, country_area2 = ?, number_of_nights =?, weekly_schedule =?,"
-	        		+ " start_date =?,  end_date =?, hotel1 =?, hotel2 =?, activity1 =?, activity2 =?, price_per_person =?";
-	        sql += " WHERE package_code = ?";
+	        String sql = "UPDATE package SET `package_codename` = ?, `package_name` = ?, `country` = ?, `country_area1` = ?, `country_area2` = ?, `number_of_nights` =?, `weekly_schedule` =?,"
+	        		+ " `start_date` =?,  `end_date` =?, `hotel1` =?, `hotel2` =?, `activity1` =?, `activity2` =?, `price_per_person` =?";
+	        sql += " WHERE `package_code` = ?";
 	        
 	        Connection conn = DbConnection.getInstance().getConnection();
 	        
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        
 			stmt.setString(1, package1.getPackage_codename());
-			stmt.setInt(2, package1.getPackage_code());
-			stmt.setString(3, package1.getPackage_name());
-			stmt.setString(4, package1.getCountry());
-			stmt.setString(5, package1.getCountry_area1());
-			stmt.setString(6, package1.getCountry_area2());
-			stmt.setString(7, package1.getNumber_of_nights());
-			stmt.setString(8, package1.getWeekly_schedule());
-			stmt.setString(9, package1.getStart_date());
-			stmt.setString(10, package1.getEnd_date());
-			stmt.setString(11, package1.getHotel1());
-			stmt.setString(12, package1.getHotel2());
-			stmt.setString(13, package1.getActivity1());
-			stmt.setString(14, package1.getActivity2());
-			stmt.setString(15, package1.getPrice_per_person());
+			stmt.setInt(15, package1.getPackage_code());
+			stmt.setString(2, package1.getPackage_name());
+			stmt.setString(3, package1.getCountry());
+			stmt.setString(4, package1.getCountry_area1());
+			stmt.setString(5, package1.getCountry_area2());
+			stmt.setString(6, package1.getNumber_of_nights());
+			stmt.setString(7, package1.getWeekly_schedule());
+			stmt.setString(8, package1.getStart_date());
+			stmt.setString(9, package1.getEnd_date());
+			stmt.setString(10, package1.getHotel1());
+			stmt.setString(11, package1.getHotel2());
+			stmt.setString(12, package1.getActivity1());
+			stmt.setString(13, package1.getActivity2());
+			stmt.setString(14, package1.getPrice_per_person());
 			
 			
 			int response = stmt.executeUpdate();
@@ -228,44 +206,7 @@ public class PackageDao {
 			return -1;
 		}
 	}
-	 
-//	 public int searchpackage(Package package1) /** throws SQLException */ {
-//		 
-//		 try {
-//	        String sql = "Select * from package  WHERE country = ?, number_of_nights =? , start_date =?";
-//	        
-//	        Connection conn = DbConnection.getInstance().getConnection();
-//	        
-//	        PreparedStatement stmt = conn.prepareStatement(sql);
-//	        
-//			stmt.setString(1, package1.getPackage_codename());
-//			stmt.setInt(2, package1.getPackage_code());
-//			stmt.setString(3, package1.getPackage_name());
-//			stmt.setString(4, package1.getCountry());
-//			stmt.setString(5, package1.getCountry_area1());
-//			stmt.setString(6, package1.getCountry_area2());
-//			stmt.setString(7, package1.getNumber_of_nights());
-//			stmt.setString(8, package1.getWeekly_schedule());
-//			stmt.setString(9, package1.getStart_date());
-//			stmt.setString(10, package1.getEnd_date());
-//			stmt.setString(11, package1.getHotel1());
-//			stmt.setString(12, package1.getHotel2());
-//			stmt.setString(13, package1.getActivity1());
-//			stmt.setString(14, package1.getActivity2());
-//			stmt.setString(15, package1.getPrice_per_person());
-//			
-//			
-//			int response = stmt.executeUpdate();
-//			conn.close();
-//			return response;
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			logger.error("SQL ERROR :  No results found - "+e.getMessage());
-//			return -1;
-//		}
-//	}
-//	        
+	        
 	       // connect();
 	         
 	      //  PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -324,76 +265,6 @@ public class PackageDao {
 		}
 	}
 */
-	 
-	 public Package searchPackage(String country, String number_of_nights, String start_date) {
-			
-			try {
-			  Class.forName("com.mysql.cj.jdbc.Driver");
-		      Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-		    
-		      
-		      String sql ="Select * from `package` where `country` = ? and `number_of_nights`=? and `start_date`=?";
-		      PreparedStatement stmt = conn.prepareStatement(sql);
-		      stmt.setString(1,country);
-		      stmt.setString (2, number_of_nights);
-		      stmt.setString (3, start_date);
-		      
-		      ResultSet resultSet = stmt.executeQuery();
-		      
-		      int rows =0;
-		      Package package2 = new Package();
-		      while (resultSet.next()) {
-		    	  
-		    	    rows ++;
-		    	
-		    	    //PreparedStatement stmt = conn.prepareStatement(sql);
-			        stmt.setString(1, package2.getPackage_codename());
-					stmt.setInt(2, package2.getPackage_code());
-					stmt.setString(3, package2.getPackage_name());
-					stmt.setString(4, package2.getCountry());
-					stmt.setString(5, package2.getCountry_area1());
-					stmt.setString(6, package2.getCountry_area2());
-					stmt.setString(7, package2.getNumber_of_nights());
-					stmt.setString(8, package2.getWeekly_schedule());
-					stmt.setString(9, package2.getStart_date());
-					stmt.setString(10, package2.getEnd_date());
-					stmt.setString(11, package2.getHotel1());
-					stmt.setString(12, package2.getHotel2());
-					stmt.setString(13, package2.getActivity1());
-					stmt.setString(14, package2.getActivity2());
-					stmt.setString(15, package2.getPrice_per_person());
-		    	  
-		      }
-		      
-	      if (rows == 1) {
-		        	  
-		    	 Class.forName("com.mysql.cj.jdbc.Driver");
-		         Connection conn1=DriverManager.getConnection("jdbc:mysql://localhost:3306/tourismapp","root","12345");
-		    	    	 
-		         String sql1 ="Select * from `package` where `country` = ? and `number_of_nights`=?"
-		         		+ " and `start_date`=?";
-		    	  		
-		  		PreparedStatement stmt1 = conn1.prepareStatement(sql1);
-	   	 
-				stmt1.setString(1, package2.getCountry());
-	   	  		stmt1.setString(2, package2.getNumber_of_nights());
-		  		stmt1.setString(3, package2.getStart_date());
-
-		    	int resultSet1 = stmt1.executeUpdate();		    	  		
-	    	  	return package2;
-		  
-	      } else {
-	    	  return null;
-	      }
-	      
-		} catch (Exception e) {
-			e.printStackTrace();
-			 logger.info("SQL ERROR :  Results can not be found - "+e.getMessage());
-			return null;
-		}
-
-	}
-	
 	private List<Package> LogFiles() {
 	//Log
 	logger.fatal("This is a FATAL log");
@@ -405,7 +276,4 @@ public class PackageDao {
 	
 	return packageList;
 	}
-
-
 }
-	
