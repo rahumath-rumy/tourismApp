@@ -18,7 +18,12 @@ import jakarta.ws.rs.core.Response;
 @Path("inquiries")
 public class InquiryResource {
 	
-	
+	/**
+	 * insert inquiry
+	 * @param email
+	 * @param desc
+	 * @return
+	 */
 	@POST 
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces (MediaType.APPLICATION_JSON)
@@ -45,6 +50,7 @@ public class InquiryResource {
 			return Response  
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		
 		} else {

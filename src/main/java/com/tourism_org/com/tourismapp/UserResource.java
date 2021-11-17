@@ -4,10 +4,8 @@
 	import java.util.List;
 	import java.util.Map;
 	import com.google.gson.Gson;
-	import com.tourism_org.com.tourismapp.dao.AdminDao;
 	import com.tourism_org.com.tourismapp.dao.UserDao;
 	import com.tourism_org.com.tourismapp.model.User;
-	import com.tourism_org.com.tourismapp.model.admin;
 
 	import jakarta.ws.rs.Consumes;
 	import jakarta.ws.rs.DELETE;
@@ -28,6 +26,10 @@
 		
 		private Gson gson = new Gson();
 		
+		/**
+		 * get all the user record from the Db
+		 * @return
+		 */
 		@GET
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response getUsersFromDb()  {
@@ -39,8 +41,15 @@
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		}
+		
+		/**
+		 * get user record from Id
+		 * @param id
+		 * @return
+		 */
 			
 		@Path("{Id}")
 		@GET
@@ -64,9 +73,25 @@
 				return Response
 						.status(400)
 						.entity(errorString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			}
 		}
+		
+		/**
+		 * insert user into the Db
+		 * @param fname
+		 * @param lname
+		 * @param phone
+		 * @param email
+		 * @param address
+		 * @param srilankan
+		 * @param country
+		 * @param nationality
+		 * @param passport
+		 * @param password
+		 * @return
+		 */
 		
 		@POST // to insert data we use post
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -82,7 +107,7 @@
 								@FormParam("PassportOrNIC") String passport,
 								@FormParam ("password") String password) {
 			
-			//declare gson
+		
 			Gson gson = new Gson();
 			
 			User user = new User();
@@ -111,10 +136,11 @@
 				return Response  
 						.status(200)
 						.entity(jsonString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			
 			} else {
-				Msg.put("Error","please add valid info");
+				Msg.put("Error","Incorrect details have been entered. Please check the details and try again!");
 				String jsonString = gson.toJson(Msg);
 				return Response  
 						.status(401)
@@ -122,6 +148,12 @@
 						.build(); 
 			}
 		}
+		
+		/**
+		 * user logins to their account
+		 * @param data
+		 * @return
+		 */
 		
 		
 		@Path ("/userlogin")
@@ -144,6 +176,7 @@
 				return Response  
 						.status(200)
 						.entity(jsonString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			
 			} else {
@@ -157,39 +190,13 @@
 			}
 		}
 		
-		@Path ("/userlogin/booking")
-		@GET
-		@Consumes (MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response bookings(String data) {
-			Gson gson = new Gson();
-			User enter_user = gson.fromJson(data, User.class);
-			
-			UserDao userDao = new UserDao();
-			User user = userDao.userAuth(enter_user .getEmail(), enter_user.getPassword());
-			
-			if (user != null) {
-				Map  <String, String> msg = new HashMap<>();
-				
-				msg.put("Success", "You have logged in!");
-				String jsonString = gson.toJson(msg);
-			
-				return Response  
-						.status(200)
-						.entity(jsonString)
-						.build();
-			
-			} else {
-				Map<String, String> msg = new HashMap<>();
-				msg.put("Error"," Invalid login. Please try again!");
-				String jsonString = gson.toJson(msg);
-				return Response  
-						.status(401)
-						.entity(jsonString)
-						.build(); 
-			}
-		}
+
 		
+		/**
+		 * user forgets password
+		 * @param email
+		 * @return
+		 */
 	
 		@Path ("/forgotpassword")
 		@POST
@@ -211,6 +218,7 @@
 				return Response  
 						.status(200)
 						.entity(jsonString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			
 			} else {
@@ -224,7 +232,11 @@
 			}
 		}
 		
-		
+		/**
+		 * update customer details
+		 * @param jsonData
+		 * @return
+		 */
 		@PUT
 		@Consumes(MediaType.APPLICATION_JSON) 
 		@Produces(MediaType.APPLICATION_JSON)
@@ -246,6 +258,7 @@
 				return Response
 						.status(200)
 						.entity(jsonString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			} else {
 				Map<String, String> msg = new HashMap<>();
@@ -259,6 +272,12 @@
 			}
 
 		}
+		
+		/**
+		 * delete customer
+		 * @param id
+		 * @return
+		 */
 		
 		@DELETE
 		@Path("/{Id}")
@@ -278,6 +297,7 @@
 				return Response  
 						.status(200)
 						.entity(jsonString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			
 			} else {

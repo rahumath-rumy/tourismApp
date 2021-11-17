@@ -11,7 +11,7 @@ import com.tourism_org.com.tourismapp.model.admin;
 
 	public class UserDaoTest {
 		
-		private int expected =3;
+		private int expected =4;
 		
 		@Test
 		public void testGetUser()  {
@@ -34,8 +34,8 @@ import com.tourism_org.com.tourismapp.model.admin;
 		@Test
 		public void testLogin() {
 			
-			String email ="olivia@gmail.com";
-			String password ="olive";
+			String email ="harith@yahoo.com";
+			String password ="harith123";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.userAuth(email, password);
@@ -46,7 +46,7 @@ import com.tourism_org.com.tourismapp.model.admin;
 		@Test
 		public void testForgotPassword() {
 			
-			String email ="olivia@gmail.com";
+			String email ="harith@yahoo.com";
 			
 			UserDao userDao = new UserDao();
 			User actual =userDao.forgotpassword(email);

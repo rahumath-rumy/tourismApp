@@ -2,7 +2,6 @@ package com.tourism_org.com.tourismapp.dao;
 
 import java.security.MessageDigest;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,9 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.tourism_org.com.tourismapp.config.DbConnection;
-//import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
-import com.tourism_org.com.tourismapp.model.Package;
 import com.tourism_org.com.tourismapp.model.admin;
 
 import jakarta.ws.rs.PathParam;
@@ -27,7 +24,7 @@ public class AdminDao {
 	private List <admin> adminList = new ArrayList<>();
 	
 	/**
-	 * get all the admin details
+	 * get all the Admins details
 	 * @return
 	 */
 	public List<admin> getAll(){
@@ -76,7 +73,12 @@ public class AdminDao {
 		return -1;
 	}
 }
-
+	
+	/**
+	 * encrypt password
+	 * @param tobeEncrpyted
+	 * @return
+	 */
 
 	public String Sha1Encrypt (String tobeEncrpyted) {
    
@@ -119,7 +121,7 @@ public class AdminDao {
 
 
 	/**
-	 * login authorzation for admins.
+	 * login authorisation for admins.
 	 * @param email
 	 * @param password
 	 * @return
@@ -192,6 +194,7 @@ public class AdminDao {
 	public admin forgotpassword(String email) {
 		
 		Connection connection = DbConnection.getInstance().getConnection();
+		
 		try {
 		  Class.forName("com.mysql.cj.jdbc.Driver");
 		  
@@ -216,9 +219,7 @@ public class AdminDao {
 				Admin.setAdmin_control(resultSet.getBoolean("admin_control"));
 				Admin.setPassword(resultSet.getString("admin_password"));
 	    	  
-	      }
-	      
-	      if (rows == 1) {
+	      }  if (rows == 1) {
 	    	 return Admin;
 	    	  
 	      } else {
@@ -228,13 +229,15 @@ public class AdminDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-			
 		}
 		
 }
 	
-	
-	
+	/**
+	 * get all admins from the database
+	 * @return
+	 */
+
 	public List<admin> getAdminFromDb(){
 	
 	Connection connection = DbConnection.getInstance().getConnection();
@@ -272,7 +275,7 @@ public class AdminDao {
 }
 	
 	/**
-	 * delete admin from the Db
+	 * delete admin from the Database
 	 */
 	public admin deladmin(int admin_id) {
 
@@ -286,9 +289,7 @@ public class AdminDao {
 	      stmt.setInt(1,admin_id);
 	      
 	     stmt.executeUpdate();
-	    	  
-	    
-		return null;
+	     return null;
 		
 		}
 			catch (Exception e) {
@@ -296,6 +297,8 @@ public class AdminDao {
 			return null;
 		}
 	}
+	
+	
 	/**
 	 * update admin details
 	 * @param package1
@@ -305,8 +308,8 @@ public class AdminDao {
 		
 		 try {
 			 
-			 	String password = admin.getPassword();
-			   String encryptedPassword =  Sha1Encrypt (password);
+			String password = admin.getPassword();
+			String encryptedPassword =  Sha1Encrypt (password);
 			    
 	        String sql = "UPDATE admin SET `admin_fname` = ?, `admin_lname` = ?, `email` = ?, "
 	        		+ "`mobile` = ?, `address` = ?, `admin_control` =?, `admin_password` =?"

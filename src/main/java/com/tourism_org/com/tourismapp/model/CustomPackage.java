@@ -4,17 +4,18 @@ public class CustomPackage {
 
 	
 	private int cp_id;
-	private String cp_code;
+	private String country_location;
 	private String country;
 	private String hotel1;
 	private String hotel2;
 	private String activity1;
 	private String activity2;
-	private String number_of_people;
+	private int number_of_people;
 	private String start_date;
 	private String end_date;
 	private int number_of_nights;
-	private boolean status;
+	private String status;
+	private String feedback;
 	
 	public CustomPackage() {
 		super();
@@ -22,11 +23,11 @@ public class CustomPackage {
 	}
 	
 	
-	public CustomPackage(int cp_id, String cp_code, String country, String hotel1, String hotel2, String activity1,
-			String activity2, String number_of_people, String start_date, String end_date, int number_of_nights) {
+	public CustomPackage(int cp_id, String country, String country_location, String hotel1, String hotel2, String activity1,
+			String activity2, int number_of_people, String start_date, String end_date, int number_of_nights, String status) {
 		super();
 		this.cp_id = cp_id;
-		this.cp_code = cp_code;
+		this.country_location= country_location;
 		this.country = country;
 		this.hotel1 = hotel1;
 		this.hotel2 = hotel2;
@@ -36,6 +37,7 @@ public class CustomPackage {
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.number_of_nights = number_of_nights;
+		this.status =status;
 	}
 	public int getCp_id() {
 		return cp_id;
@@ -43,12 +45,7 @@ public class CustomPackage {
 	public void setCp_id(int cp_id) {
 		this.cp_id = cp_id;
 	}
-	public String getCp_code() {
-		return cp_code;
-	}
-	public void setCp_code(String cp_code) {
-		this.cp_code = cp_code;
-	}
+	
 	public String getCountry() {
 		return country;
 	}
@@ -79,10 +76,10 @@ public class CustomPackage {
 	public void setActivity2(String activity2) {
 		this.activity2 = activity2;
 	}
-	public String getNumber_of_people() {
+	public int getNumber_of_people() {
 		return number_of_people;
 	}
-	public void setNumber_of_people(String number_of_people) {
+	public void setNumber_of_people(int number_of_people) {
 		this.number_of_people = number_of_people;
 	}
 	public String getStart_date() {
@@ -105,15 +102,37 @@ public class CustomPackage {
 	}
 
 
-	public boolean isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+
+	public String getCountry_location() {
+		return country_location;
+	}
+
+
+	public void setCountry_location(String country_location) {
+		this.country_location = country_location;
+	}
+
+
+	
 	
 	
 	

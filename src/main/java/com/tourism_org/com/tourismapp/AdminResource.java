@@ -1,22 +1,13 @@
 package com.tourism_org.com.tourismapp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-//import javax.print.attribute.standard.Media;
 import com.google.gson.Gson;
-import com.tourism_org.com.tourismapp.config.DbConnection;
+
 import com.tourism_org.com.tourismapp.dao.AdminDao;
-import com.tourism_org.com.tourismapp.dao.PackageDao;
-import com.tourism_org.com.tourismapp.dao.UserDao;
-import com.tourism_org.com.tourismapp.model.Package;
-import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
 
-import jakarta.validation.ReportAsSingleViolation;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
@@ -28,6 +19,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
 
 @Path("admin")
 public class AdminResource {
@@ -45,9 +37,15 @@ public class AdminResource {
 		return Response
 				.status(200)
 				.entity(jsonString)
+				.header("Access-Control-Allow-Origin", "*")
 				.build();
 	}
 		
+	/**
+	 * 
+	 * @param admin_id
+	 * @return
+	 */
 	@Path("{admin_id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -60,10 +58,11 @@ public class AdminResource {
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> errorMsg = new HashMap<>();
-			errorMsg.put("ERROR", "Invalid admin id");
+			errorMsg.put("ERROR", "Invalid Admin Id!");
 			
 			String errorString = gson.toJson(errorMsg);
 			return Response
@@ -73,7 +72,20 @@ public class AdminResource {
 		}
 	}
 	
-	@POST // to insert data we use post
+	/**
+	 * 
+	 * @param admin_id
+	 * @param fname
+	 * @param lname
+	 * @param email
+	 * @param mobile
+	 * @param address
+	 * @param admin_control
+	 * @param password
+	 * @return
+	 */
+	
+	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces (MediaType.APPLICATION_JSON)
 	public Response addAdmin(@FormParam("admin_id") int admin_id,
@@ -105,17 +117,17 @@ public class AdminResource {
 		Map<String, String> Msg = new HashMap<>();
 		
 		if (Res > 0) {
-			Msg.put("Success", "Staff record added sucesfully");
+			Msg.put("Success", "Staff record has been added succesfully");
 			String jsonString = gson.toJson(Msg);
 			
-			//if u want to redirect to a different page
 			return Response  
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		
 		} else {
-			Msg.put("Error"," Please add valid info");
+			Msg.put("Error"," Please add valid information!");
 			String jsonString = gson.toJson(Msg);
 			return Response  
 					.status(401)
@@ -124,8 +136,14 @@ public class AdminResource {
 		}
 	}
 	
+	/**
+	 * Admin login
+	 * @param data
+	 * @return
+	 */
+	
 	@Path ("/login")
-	@POST
+	@GET
 	@Consumes (MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(String data) {
@@ -144,11 +162,12 @@ public class AdminResource {
 			return Response  
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		
 		} else {
 			Map<String, String> msg = new HashMap<>();
-			msg.put("Error"," Invalid Admin Login. Please try again!");
+			msg.put("Error"," Invalid login information. Please try again!");
 			String jsonString = gson.toJson(msg);
 			return Response  
 					.status(401)
@@ -157,6 +176,11 @@ public class AdminResource {
 		}
 	}
 	
+	/**
+	 * admin forgot password
+	 * @param email
+	 * @return
+	 */
 	@Path ("/forgotpassword")
 	@POST
 	@Consumes (MediaType.APPLICATION_JSON)
@@ -177,6 +201,7 @@ public class AdminResource {
 			return Response  
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		
 		} else {
@@ -190,8 +215,14 @@ public class AdminResource {
 		}
 	}
 	
+	
+	/**
+	 * update admin records
+	 * @param jsonData
+	 * @return
+	 */
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON) // request data type
+	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.APPLICATION_JSON)
 	
 	public Response updateAdmin(String jsonData) {
@@ -211,6 +242,7 @@ public class AdminResource {
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> msg = new HashMap<>();
@@ -225,7 +257,11 @@ public class AdminResource {
 
 	}
 	
-	
+	/**
+	 * Delete a record
+	 * @param admin_id
+	 * @return
+	 */
 	@DELETE
 	@Path("/{admin_id}")
 	public Response deladmin (@PathParam("admin_id") int admin_id) {
@@ -244,6 +280,7 @@ public class AdminResource {
 			return Response  
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		
 		} else {
@@ -255,7 +292,7 @@ public class AdminResource {
 					.entity(jsonString)
 					.build(); 
 		}
-}
+	}
 }
 
 

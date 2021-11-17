@@ -1,94 +1,72 @@
 package com.tourism_org.com.tourismapp.model;
 
+import java.sql.Timestamp;
+
 public class Payment {
 
-	private int payment_id;
-	private int package_id;
+	private int Payment_id;
 	private String cardType;
-	private int cardNo;
-	private int cvv;
+	private String cardNo;
+	private int CVV;
 	private String expDate;
-	private String paymentDate;
+	private Timestamp paymentDate;
 	private Float amountPaid;
-	
-	public Payment(int payment_id, int package_id, String cardType, int cardNo, int cvv, String expDate, String paymentDate,
+	public Payment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Payment(int payment_id, String cardType, String cardNo, int cVV, String expDate, Timestamp paymentDate,
 			Float amountPaid) {
 		super();
-		this.payment_id = payment_id;
-		this.package_id = package_id;
+		Payment_id = payment_id;
 		this.cardType = cardType;
 		this.cardNo = cardNo;
-		this.cvv = cvv;
+		CVV = cVV;
 		this.expDate = expDate;
 		this.paymentDate = paymentDate;
 		this.amountPaid = amountPaid;
 	}
-
 	public int getPayment_id() {
-		return payment_id;
+		return Payment_id;
 	}
-
 	public void setPayment_id(int payment_id) {
-		this.payment_id = payment_id;
+		Payment_id = payment_id;
 	}
-	
-	public int getPackage_Id() {
-		return package_id;
-	}
-	
-	public void setPackage_id(int package_id) {
-		this.package_id = package_id;
-	}
-	
-
 	public String getCardType() {
 		return cardType;
 	}
-
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
-
-	public int getCardNo() {
+	public String getCardNo() {
 		return cardNo;
 	}
-
-	public void setCardNo(int cardNo) {
+	public void setCardNo(String cardNo) {
 		this.cardNo = cardNo;
 	}
-
-	public int getCvv() {
-		return cvv;
+	public int getCVV() {
+		return CVV;
 	}
-
-	public void setCvv(int cvv) {
-		this.cvv = cvv;
+	public void setCVV(int cVV) {
+		CVV = cVV;
 	}
-
 	public String getExpDate() {
 		return expDate;
 	}
-
 	public void setExpDate(String expDate) {
 		this.expDate = expDate;
 	}
-
-	public String getPaymentDate() {
+	public Timestamp getPaymentDate() {
 		return paymentDate;
 	}
-
-	public void setPaymentDate(String paymentDate) {
+	public void setPaymentDate(Timestamp paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-
 	public Float getAmountPaid() {
 		return amountPaid;
 	}
-
 	public void setAmountPaid(Float amountPaid) {
 		this.amountPaid = amountPaid;
 	}
-
-	
 	
 }

@@ -11,7 +11,7 @@ import com.tourism_org.com.tourismapp.model.admin;
 
 public class AdminDaoTest {
 	
-	private int expected =1;
+	private int expected =5;
 	
 	@Test
 	public void testGetAdmins() {
@@ -35,9 +35,8 @@ public class AdminDaoTest {
 	@Test
 	public void testLogin() {
 		
-		String email ="sam@yahoo.com";
-		String password ="sam";
-		
+		String email ="kumar.varun@gmail.com";
+		String password ="kumar12345";
 		
 		AdminDao adminDao = new AdminDao();
 		admin actual =adminDao.adminAuth(email, password);
@@ -48,7 +47,7 @@ public class AdminDaoTest {
 	@Test
 	public void testForgotpassword() {
 		
-		String email ="sam@yahoo.com";
+		String email ="kumar.varun@gmail.com";
 		
 		AdminDao adminDao = new AdminDao();
 		admin actual =adminDao.forgotpassword(email);
@@ -70,11 +69,11 @@ public class AdminDaoTest {
 		
 		int expected = 1;
 		
-		admin Admin= new admin();
-		Admin.setAdmin_id(102);
+		admin Admin = new admin();
+		
 		Admin.setFname("Joseph");
 		Admin.setLname("Faux");
-		Admin.setEmail("joseph@tours.org");
+		Admin.setEmail("joseph.faux@gmail.com");
 		Admin.setMobile(778987654);
 		Admin.setAddress("N0 18, Keppitipola Road, Kolannawa");
 		Admin.setAdmin_control(true);

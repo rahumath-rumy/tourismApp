@@ -144,3 +144,149 @@
 23:29:26.115 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
 23:31:56.554 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'
 23:31:56.554 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'
+22:12:57.776 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'
+22:12:57.776 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'
+22:13:50.846 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'
+22:13:50.846 [main] INFO  com.tourism_org.com.tourismapp.dao.UserDao - SQL ERROR :  Could not insert data - Duplicate entry 'sophie98@gmail.com-311456717' for key 'Email'
+23:09:40.353 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.353 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.393 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.393 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.417 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.417 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.429 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.429 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.440 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:09:40.440 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.209 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.209 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.249 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
+23:11:20.249 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
+23:11:20.268 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.268 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.289 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.289 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.298 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.298 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.308 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:20.308 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.809 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.809 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.848 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
+23:11:36.848 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
+23:11:36.879 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.879 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.898 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.898 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.907 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.907 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.915 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:11:36.915 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.502 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.502 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.544 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
+23:12:16.544 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry '102' for key 'PRIMARY'
+23:12:16.568 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.568 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.587 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.587 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.597 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.597 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.605 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.605 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.612 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:12:16.612 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.839 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.839 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.893 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.893 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.910 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.910 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.922 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.922 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.929 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.929 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.935 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:13:04.935 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:22:03.096 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:22:03.096 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:23:45.132 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:23:45.132 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:24:05.549 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:24:05.549 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:24:26.394 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:24:26.394 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:49.169 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:49.169 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:49.333 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:49.333 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:03:28.830 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:03:28.830 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:03:29.009 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:03:29.009 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:04:34.089 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+12:04:34.089 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+12:05:03.831 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+12:05:03.831 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+12:05:21.243 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+12:05:21.243 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+13:17:46.354 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:17:46.354 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:19:22.438 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+13:19:22.438 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP303' for key 'cp_code_UNIQUE'
+13:19:22.457 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:19:22.457 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:22:55.694 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:22:55.694 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:23:27.264 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:23:27.264 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:23:27.280 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:23:27.280 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:23:56.776 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:23:56.776 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:23:56.791 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:23:56.791 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:24:30.266 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:24:30.266 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:24:30.308 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:24:30.308 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:25:43.741 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:25:43.741 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:26:06.695 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:26:06.695 [main] INFO  com.tourism_org.com.tourismapp.dao.PackageDao - SQL ERROR :  Could not insert data - Duplicate entry 'CP312' for key 'cp_code_UNIQUE'
+13:26:06.714 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+13:26:06.714 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:29.981 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:29.981 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.116 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.116 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.191 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.191 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.213 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.213 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.254 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:05:30.254 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.674 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.674 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.735 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry 'joseph.faux@gmail.com' for key 'email'
+23:06:20.735 [main] ERROR com.tourism_org.com.tourismapp.dao.AdminDao - SQL ERROR :  Could not insert data - Duplicate entry 'joseph.faux@gmail.com' for key 'email'
+23:06:20.773 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.773 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.807 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.807 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.833 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.833 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.896 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+23:06:20.896 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:08.032 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:08.032 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:08.583 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:08.583 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:10.369 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:02:10.369 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:04:08.154 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:04:08.154 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:05:21.136 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:05:21.136 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:05:22.046 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful
+12:05:22.046 [main] INFO  com.tourism_org.com.tourismapp.config.DbConnection - DB SUCCESS :  Connection Successful

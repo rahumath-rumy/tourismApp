@@ -1,7 +1,8 @@
 package com.tourism_org.com.tourismapp.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,25 +63,25 @@ public class PackageDao {
 		try {		
 			
 			//Prepare SQL query.
-			String sql = "INSERT INTO `package` (`package_codename`, `package_code`, `package_name`, `country`, `country_area1`, `country_area2`,`number_of_nights`,"
-					+ " `weekly_schedule`, `start_date`, `end_date`, `hotel1`, `hotel2`, `activity1`, `activity2`, `price_per_person`)"
+			String sql = "INSERT INTO `package` (`package_code`, `package_name`, `country`, `country_area1`, `country_area2`,`number_of_nights`,"
+					+ " `weekly_schedule`, `start_date`, `end_date`, `hotel1`, `hotel2`, `activity1`, `activity2`, `description`, `price_per_person`)"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, user.getPackage_codename());
-			stmt.setInt(2, user.getPackage_code());
-			stmt.setString(3, user.getPackage_name());
-			stmt.setString(4, user.getCountry());
-			stmt.setString(5, user.getCountry_area1());
-			stmt.setString(6, user.getCountry_area2());
-			stmt.setString(7, user.getNumber_of_nights());
-			stmt.setString(8, user.getWeekly_schedule());
-			stmt.setString(9, user.getStart_date());
-			stmt.setString(10, user.getEnd_date());
-			stmt.setString(11, user.getHotel1());
-			stmt.setString(12, user.getHotel2());
-			stmt.setString(13, user.getActivity1());
-			stmt.setString(14, user.getActivity2());
+			stmt.setInt(1, user.getPackage_code());
+			stmt.setString(2, user.getPackage_name());
+			stmt.setString(3, user.getCountry());
+			stmt.setString(4, user.getCountry_area1());
+			stmt.setString(5, user.getCountry_area2());
+			stmt.setString(6, user.getNumber_of_nights());
+			stmt.setString(7, user.getWeekly_schedule());
+			stmt.setString(8, user.getStart_date());
+			stmt.setString(9, user.getEnd_date());
+			stmt.setString(10, user.getHotel1());
+			stmt.setString(11, user.getHotel2());
+			stmt.setString(12, user.getActivity1());
+			stmt.setString(13, user.getActivity2());
+			stmt.setString(14, user.getDescription());
 			stmt.setString(15, user.getPrice_per_person());
 			
 			
@@ -129,10 +130,8 @@ public class PackageDao {
 	
 		List<Package> packageList = new ArrayList<>();
 		
-		//Create connection instance.
 		Connection conn = DbConnection.getInstance().getConnection();
 		
-		//Prepare the query.
 		String sql = "SELECT * FROM `package`;";
 		
 		try {
@@ -142,7 +141,6 @@ public class PackageDao {
 						
 			while(resultSet.next()) {
 				Package user = new Package();
-				user.setPackage_codename(resultSet.getString("package_codename"));
 				user.setPackage_code(resultSet.getInt("package_code"));
 				user.setPackage_name(resultSet.getString("package_name"));
 				user.setCountry(resultSet.getString("country"));
@@ -156,6 +154,7 @@ public class PackageDao {
 				user.setHotel2(resultSet.getString("hotel2"));
 				user.setActivity1(resultSet.getString("activity1"));
 				user.setActivity2(resultSet.getString("activity2"));
+				user.setDescription(resultSet.getString("description"));
 				user.setPrice_per_person(resultSet.getString("price_per_person"));
 				packageList.add(user);
 			}
@@ -167,32 +166,36 @@ public class PackageDao {
 			return null;
 		}
 	}
-	
+	/**
+	 * update package 
+	 * @param package1
+	 * @return
+	 */
 	 public int UpdatePackage(Package package1) /** throws SQLException */ {
 		 
 		 try {
-	        String sql = "UPDATE package SET `package_codename` = ?, `package_name` = ?, `country` = ?, `country_area1` = ?, `country_area2` = ?, `number_of_nights` =?, `weekly_schedule` =?,"
-	        		+ " `start_date` =?,  `end_date` =?, `hotel1` =?, `hotel2` =?, `activity1` =?, `activity2` =?, `price_per_person` =?";
+	        String sql = "UPDATE package SET `package_name` = ?, `country` = ?, `country_area1` = ?, `country_area2` = ?, `number_of_nights` =?, `weekly_schedule` =?,"
+	        		+ " `start_date` =?,  `end_date` =?, `hotel1` =?, `hotel2` =?, `activity1` =?, `activity2` =?, `description` =?, `price_per_person` =?";
 	        sql += " WHERE `package_code` = ?";
 	        
 	        Connection conn = DbConnection.getInstance().getConnection();
 	        
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        
-			stmt.setString(1, package1.getPackage_codename());
 			stmt.setInt(15, package1.getPackage_code());
-			stmt.setString(2, package1.getPackage_name());
-			stmt.setString(3, package1.getCountry());
-			stmt.setString(4, package1.getCountry_area1());
-			stmt.setString(5, package1.getCountry_area2());
-			stmt.setString(6, package1.getNumber_of_nights());
-			stmt.setString(7, package1.getWeekly_schedule());
-			stmt.setString(8, package1.getStart_date());
-			stmt.setString(9, package1.getEnd_date());
-			stmt.setString(10, package1.getHotel1());
-			stmt.setString(11, package1.getHotel2());
-			stmt.setString(12, package1.getActivity1());
-			stmt.setString(13, package1.getActivity2());
+			stmt.setString(1, package1.getPackage_name());
+			stmt.setString(2, package1.getCountry());
+			stmt.setString(3, package1.getCountry_area1());
+			stmt.setString(4, package1.getCountry_area2());
+			stmt.setString(5, package1.getNumber_of_nights());
+			stmt.setString(6, package1.getWeekly_schedule());
+			stmt.setString(7, package1.getStart_date());
+			stmt.setString(8, package1.getEnd_date());
+			stmt.setString(9, package1.getHotel1());
+			stmt.setString(10, package1.getHotel2());
+			stmt.setString(11, package1.getActivity1());
+			stmt.setString(12, package1.getActivity2());
+			stmt.setString(13, package1.getDescription());
 			stmt.setString(14, package1.getPrice_per_person());
 			
 			
@@ -205,54 +208,41 @@ public class PackageDao {
 			logger.error("SQL ERROR :  COULD NOT UPDATE PACKAGE DATA - "+e.getMessage());
 			return -1;
 		}
-	}
-	        
-	       // connect();
-	         
-	      //  PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-	        
-	 /**       
-	        
-	        statement.setString(1, book.getTitle());
-	        statement.setString(2, book.getAuthor());
-	        statement.setFloat(3, book.getPrice());
-	        statement.setInt(4, book.getId());
-	         
-	        boolean rowUpdated = statement.executeUpdate() > 0;
-	        statement.close();
-	        disconnect();
-	        return rowUpdated;     
-	    }
-	*/
+	 }
+     
+//		/**
+//		 * search a package.
+//		 * @param String
+//		 * @return
+//		 */
+//		public Package searchPackage(String country,String number_of_nights) {
+//			
+//			List<Package> packages = getPackageFromDb();
+//			
+//			for (Package searchPackage : packages) {
+//				if (searchPackage.getCountry() == country && 
+//						searchPackage.getNumber_of_nights() == number_of_nights) {
+//					return searchPackage;
+//				}
+//			}
+//			return null;
+//		}
+//		
 	 
-/**	 
-	 
- public int UpdatePackage1(Package package2) {
+public int SearchPackage(Package package1) /** throws SQLException */ {
 		 
 		 try {
-	        String sql = "UPDATE package SET package_codename = ?, package_name = ?, country = ?, country_area1 = ?, country_area2 = ?, number_of_nights =?, weekly_schedule =?,"
-	        		+ " start_date =?,  end_date =?, hotel1 =?, hotel2 =?, activity1 =?, activity2 =?, price_per_person =? WHERE package_code =?";
+	        String sql = "SELECT * from package where  `country` = ? && `number_of_nights` =? &&`start_date` =?";
 	        
 	        Connection conn = DbConnection.getInstance().getConnection();
 	        
 	        PreparedStatement stmt = conn.prepareStatement(sql);
-	        stmt.setString(1, package2.getPackage_codename());
-			stmt.setInt(2, package2.getPackage_code());
-			stmt.setString(3, package2.getPackage_name());
-			stmt.setString(4, package2.getCountry());
-			stmt.setString(5, package2.getCountry_area1());
-			stmt.setString(6, package2.getCountry_area2());
-			stmt.setString(7, package2.getNumber_of_nights());
-			stmt.setString(8, package2.getWeekly_schedule());
-			stmt.setString(9, package2.getStart_date());
-			stmt.setString(10, package2.getEnd_date());
-			stmt.setString(11, package2.getHotel1());
-			stmt.setString(12, package2.getHotel2());
-			stmt.setString(13, package2.getActivity1());
-			stmt.setString(14, package2.getActivity2());
-			stmt.setString(15, package2.getPrice_per_person());
+	        
+			stmt.setString(1, package1.getCountry());
 			
+			stmt.setString(2, package1.getNumber_of_nights());
 			
+			stmt.setString(3, package1.getStart_date());
 			
 			int response = stmt.executeUpdate();
 			conn.close();
@@ -260,11 +250,11 @@ public class PackageDao {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("SQL ERROR :  COULD NOT UPDATE DATAs - "+e.getMessage());
+			logger.error("SQL ERROR :  COULD NOT UPDATE PACKAGE DATA - "+e.getMessage());
 			return -1;
 		}
-	}
-*/
+	 }
+
 	private List<Package> LogFiles() {
 	//Log
 	logger.fatal("This is a FATAL log");

@@ -2,7 +2,6 @@ package com.tourism_org.com.tourismapp.model;
 
 public class Package {
 
-	private String package_codename;
 	private int package_code;
 	private String package_name;
 	private String country;
@@ -16,16 +15,16 @@ public class Package {
 	private String hotel2;
 	private String activity1;
 	private String activity2;
+	private String description;
 	private String price_per_person;
 	public Package() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Package(String package_codename, int package_code, String package_name, String country, String country_area1,
-			String country_area2, String number_of_nights, String weekly_schedule, String start_date, String end_date,
-			String hotel1, String hotel2, String activity1, String activity2, String price_per_person) {
+	public Package(int package_code, String package_name, String country, String country_area1, String country_area2,
+			String number_of_nights, String weekly_schedule, String start_date, String end_date, String hotel1,
+			String hotel2, String activity1, String activity2, String description, String price_per_person) {
 		super();
-		this.package_codename = package_codename;
 		this.package_code = package_code;
 		this.package_name = package_name;
 		this.country = country;
@@ -39,13 +38,8 @@ public class Package {
 		this.hotel2 = hotel2;
 		this.activity1 = activity1;
 		this.activity2 = activity2;
+		this.description = description;
 		this.price_per_person = price_per_person;
-	}
-	public String getPackage_codename() {
-		return package_codename;
-	}
-	public void setPackage_codename(String package_codename) {
-		this.package_codename = package_codename;
 	}
 	public int getPackage_code() {
 		return package_code;
@@ -125,6 +119,12 @@ public class Package {
 	public void setActivity2(String activity2) {
 		this.activity2 = activity2;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getPrice_per_person() {
 		return price_per_person;
 	}
@@ -133,3 +133,4 @@ public class Package {
 	}
 	
 }
+	

@@ -57,7 +57,7 @@ import com.tourism_org.com.tourismapp.dao.UserDao;
 			    String encryptedPassword =  Sha1Encrypt1 (password);
 				
 				
-				String sql = "INSERT INTO `customer` (`Fname`, `Lname`, `Phone`, `Email`, `Address`,  `Srilankan`,  `Country`, `Nationality`,`PassportOrNIC`, `password`) "
+				String sql = "INSERT INTO `customer` (`Fname`, `Lname`, `Phone`, `email`, `Address`,  `Srilankan`,  `Country`, `Nationality`,`PassportOrNIC`, `password`) "
 						+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 				
 				PreparedStatement stmt = connection.prepareStatement(sql);
