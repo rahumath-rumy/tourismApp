@@ -15,7 +15,7 @@ import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.dao.AdminDao;
 import com.tourism_org.com.tourismapp.model.admin;
 
-import jakarta.ws.rs.PathParam;
+import javax.ws.rs.PathParam;
 
 public class AdminDao {
 	

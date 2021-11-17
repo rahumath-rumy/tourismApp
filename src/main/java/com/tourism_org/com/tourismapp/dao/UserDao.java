@@ -14,7 +14,7 @@ import com.tourism_org.com.tourismapp.config.DbConnection;
 import com.tourism_org.com.tourismapp.model.User;
 import com.tourism_org.com.tourismapp.model.admin;
 
-import jakarta.ws.rs.core.Response;
+import javax.ws.rs.core.Response;
 
 import com.tourism_org.com.tourismapp.dao.UserDao;
 
