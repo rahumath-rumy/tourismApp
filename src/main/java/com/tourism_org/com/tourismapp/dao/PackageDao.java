@@ -246,10 +246,11 @@ public Package searchPackage(String country,String number_of_nights) /** throws 
 			{
 				return searchPackage;	
 			}
-		} catch (Exception e) {
+			catch (Exception e) {
 			e.printStackTrace();
 			logger.error("SQL ERROR :  COULD NOT UPDATE PACKAGE DATA - "+e.getMessage());
 			return null;
+		}
 }
 
 	private List<Package> LogFiles() {
