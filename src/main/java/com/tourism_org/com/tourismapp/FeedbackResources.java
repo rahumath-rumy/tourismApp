@@ -32,6 +32,7 @@ public class FeedbackResources {
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		}
 		
@@ -55,6 +56,7 @@ public class FeedbackResources {
 				return Response
 						.status(200)
 						.entity(jsonString)
+						.header("Access-Control-Allow-Origin", "*")
 						.build();
 			} else {
 				Map<String, String> msg = new HashMap<>();

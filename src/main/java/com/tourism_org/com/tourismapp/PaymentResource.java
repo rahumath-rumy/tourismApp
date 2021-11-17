@@ -35,6 +35,7 @@ private Gson gson = new Gson();
 		return Response
 				.status(200)
 				.entity(jsonString)
+				.header("Access-Control-Allow-Origin", "*")
 				.build();
 	}
 	
@@ -49,6 +50,7 @@ private Gson gson = new Gson();
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> errorMsg = new HashMap<>();
@@ -85,6 +87,7 @@ private Gson gson = new Gson();
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> msg = new HashMap<>();

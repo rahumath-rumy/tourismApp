@@ -35,6 +35,7 @@ public class PackageResource {
 		return Response
 				.status(200)
 				.entity(jsonString)
+				.header("Access-Control-Allow-Origin", "*")
 				.build();
 	}
 	
@@ -49,6 +50,7 @@ public class PackageResource {
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> errorMsg = new HashMap<>();
@@ -84,6 +86,7 @@ public class PackageResource {
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> msg = new HashMap<>();
@@ -118,6 +121,7 @@ public class PackageResource {
 			return Response
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		} else {
 			Map<String, String> msg = new HashMap<>();
@@ -152,6 +156,7 @@ public class PackageResource {
 			return Response  
 					.status(200)
 					.entity(jsonString)
+					.header("Access-Control-Allow-Origin", "*")
 					.build();
 		
 		} else {
@@ -180,6 +185,7 @@ public class PackageResource {
 	
 	
 		PackageDao packageDao = new PackageDao();
+		Package package1 = packageDao.searchPackage(package1);
 		int Pack = packageDao.SearchPackage(package1);
 		
 //		if(Pack > 0) {
@@ -213,30 +219,30 @@ public class PackageResource {
 	
 	
 	
-	@Path("{country}/{number_of_nights}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response searchpackage(@PathParam("country") String country,
-			@PathParam("number_of_nights") String number_of_nights) {
-		PackageDao packageDao = new PackageDao();
-		Package package1 = packageDao.searchPackage(country, number_of_nights);
-		if(package1 != null) {
-			String jsonString = gson.toJson(package1);
-			return Response
-					.status(200)
-					.entity(jsonString)
-					.build();
-		} else {
-			Map<String, String> errorMsg = new HashMap<>();
-			errorMsg.put("ERROR", "No search results found");
-			
-			String errorString = gson.toJson(errorMsg);
-			return Response
-					.status(400)
-					.entity(errorString)
-					.build();
-		}
-	}
+//	@Path("{country}/{number_of_nights}")
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response searchpackage(@PathParam("country") String country,
+//			@PathParam("number_of_nights") String number_of_nights) {
+//		PackageDao packageDao = new PackageDao();
+//		Package package1 = packageDao.searchPackage(country, number_of_nights);
+//		if(package1 != null) {
+//			String jsonString = gson.toJson(package1);
+//			return Response
+//					.status(200)
+//					.entity(jsonString)
+//					.build();
+//		} else {
+//			Map<String, String> errorMsg = new HashMap<>();
+//			errorMsg.put("ERROR", "No search results found");
+//			
+//			String errorString = gson.toJson(errorMsg);
+//			return Response
+//					.status(400)
+//					.entity(errorString)
+//					.build();
+//		}
+//	}
 	
 
 }

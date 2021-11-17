@@ -229,31 +229,28 @@ public class PackageDao {
 //		}
 //		
 	 
-public int SearchPackage(Package package1) /** throws SQLException */ {
+public Package searchPackage(String country,String number_of_nights) /** throws SQLException */ {
 		 
-		 try {
+		List<Package> packages = getPackageFromDb();
+		
+		try {
 	        String sql = "SELECT * from package where  `country` = ? && `number_of_nights` =? &&`start_date` =?";
 	        
 	        Connection conn = DbConnection.getInstance().getConnection();
 	        
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        
-			stmt.setString(1, package1.getCountry());
-			
-			stmt.setString(2, package1.getNumber_of_nights());
-			
-			stmt.setString(3, package1.getStart_date());
-			
-			int response = stmt.executeUpdate();
-			conn.close();
-			return response;
-			
+			Package searchPackage;
+			if (searchPackage.getCountry() == country && 
+					searchPackage.getNumber_of_nights() == number_of_nights)
+			{
+				return searchPackage;	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("SQL ERROR :  COULD NOT UPDATE PACKAGE DATA - "+e.getMessage());
-			return -1;
-		}
-	 }
+			return null;
+}
 
 	private List<Package> LogFiles() {
 	//Log
