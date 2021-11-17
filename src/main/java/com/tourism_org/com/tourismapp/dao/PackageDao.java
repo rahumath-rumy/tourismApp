@@ -229,29 +229,29 @@ public class PackageDao {
 //		}
 //		
 	 
-public Package searchPackage(String country,String number_of_nights) /** throws SQLException */ {
-		 
-		List<Package> packages = getPackageFromDb();
-		
-		try {
-	        String sql = "SELECT * from package where  `country` = ? && `number_of_nights` =? &&`start_date` =?";
-	        
-	        Connection conn = DbConnection.getInstance().getConnection();
-	        
-	        PreparedStatement stmt = conn.prepareStatement(sql);
-	        
-			Package searchPackage;
-			if (searchPackage.getCountry() == country && 
-					searchPackage.getNumber_of_nights() == number_of_nights)
-			{
-				return searchPackage;	
-			}
-			catch (Exception e) {
-			e.printStackTrace();
-			logger.error("SQL ERROR :  COULD NOT UPDATE PACKAGE DATA - "+e.getMessage());
-			return null;
-		}
-}
+//public Package searchPackage(String country,String number_of_nights) /** throws SQLException */ {
+//		 
+//		List<Package> packages = getPackageFromDb();
+//		
+//		try {
+//	        String sql = "SELECT * from package where  `country` = ? && `number_of_nights` =? &&`start_date` =?";
+//	        
+//	        Connection conn = DbConnection.getInstance().getConnection();
+//	        
+//	        PreparedStatement stmt = conn.prepareStatement(sql);
+//	        
+//			Package searchPackage;
+//			if (searchPackage.getCountry() == country && 
+//					searchPackage.getNumber_of_nights() == number_of_nights)
+//			{
+//				return searchPackage;	
+//			}
+//			catch (Exception e) {
+//			e.printStackTrace();
+//			logger.error("SQL ERROR :  COULD NOT UPDATE PACKAGE DATA - "+e.getMessage());
+//			return null;
+//		}
+//}
 
 	private List<Package> LogFiles() {
 	//Log

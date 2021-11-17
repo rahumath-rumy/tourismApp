@@ -170,54 +170,54 @@ public class PackageResource {
 		}
 	}
 	
-	@Path ("/search")
-	@GET
-	@Consumes(MediaType.APPLICATION_JSON) // request data type
-	@Produces(MediaType.APPLICATION_JSON)
-	
-	public Response SearchPackage(String jsonData) {
-	
-	Gson gson = new Gson();
-	Package package1 = gson.fromJson(jsonData, Package.class);
-	
-//	PackageDao packageDao = new PackageDao();
-//	Package package1 = packageDao.searchPackage(country, number_of_nights);
-	
-	
-		PackageDao packageDao = new PackageDao();
-		Package package1 = packageDao.searchPackage(package1);
-		int Pack = packageDao.SearchPackage(package1);
-		
-//		if(Pack > 0) {
-//			Map<String, String> msg = new HashMap<>();
-//			msg.put("SUCCESS", " Package Record Has Been Updated Successfully!");
-//			String jsonString = gson.toJson(msg);
-		
-		if(package1 != null) {
-			String jsonString = gson.toJson(package1);
-			return Response
-					.status(200)
-					.entity(jsonString)
-					.build();
+//	@Path ("/search")
+//	@GET
+//	@Consumes(MediaType.APPLICATION_JSON) // request data type
+//	@Produces(MediaType.APPLICATION_JSON)
+//	
+//	public Response SearchPackage(String jsonData) {
+//	
+//	Gson gson = new Gson();
+//	Package package1 = gson.fromJson(jsonData, Package.class);
+//	
+////	PackageDao packageDao = new PackageDao();
+////	Package package1 = packageDao.searchPackage(country, number_of_nights);
+//	
+//	
+//		PackageDao packageDao = new PackageDao();
+//		Package package1 = packageDao.searchPackage(package1);
+//		int Pack = packageDao.SearchPackage(package1);
+//		
+////		if(Pack > 0) {
+////			Map<String, String> msg = new HashMap<>();
+////			msg.put("SUCCESS", " Package Record Has Been Updated Successfully!");
+////			String jsonString = gson.toJson(msg);
+//		
+//		if(package1 != null) {
+//			String jsonString = gson.toJson(package1);
 //			return Response
 //					.status(200)
 //					.entity(jsonString)
 //					.build();
-		} else {
-			Map<String, String> msg = new HashMap<>();
-			msg.put("ERROR", "Please Enter Valid Information?");
-			String jsonString = gson.toJson(msg);
-			
-			return Response
-					.status(400)
-					.entity(jsonString)
-					.build();
-		}
-
-	}
-	
-	
-	
+////			return Response
+////					.status(200)
+////					.entity(jsonString)
+////					.build();
+//		} else {
+//			Map<String, String> msg = new HashMap<>();
+//			msg.put("ERROR", "Please Enter Valid Information?");
+//			String jsonString = gson.toJson(msg);
+//			
+//			return Response
+//					.status(400)
+//					.entity(jsonString)
+//					.build();
+//		}
+//
+//	}
+//	
+//	
+//	
 	
 //	@Path("{country}/{number_of_nights}")
 //	@GET
